@@ -1,11 +1,17 @@
 package revoltgo
 
 import (
+	"encoding/json"
 	"fmt"
 	"time"
 
 	"github.com/sacOO7/gowebsocket"
 )
+
+// Dummy struct for parse gateway events.
+type GatewayType struct {
+	Type string `json:"type"`
+}
 
 func (c *Client) Start() {
 	// Create new socket
@@ -17,8 +23,22 @@ func (c *Client) Start() {
 	}
 
 	c.Socket.OnTextMessage = func(message string, _ gowebsocket.Socket) {
-		if message == "{\"type\":\"Authenticated\"}" {
+		// Parse data
+		rawData := &GatewayType{}
+		err := json.Unmarshal([]byte(message), rawData)
+
+		if err != nil {
+			c.Destroy()
+			panic(err)
+		}
+
+		if rawData.Type == "Authenticated" {
 			go c.ping()
+		}
+
+		// Check events
+		if rawData.Type == "Ready" {
+			c.OnReadyFunction()
 		}
 
 		fmt.Println(message)
