@@ -14,11 +14,17 @@ type Client struct {
 	Token  string
 	Socket gowebsocket.Socket
 
-	// Functions
-	OnReadyFunction func()
+	// Event Functions
+	OnReadyFunction   func()
+	OnMessageFunction func(message *Message)
 }
 
-// On Ready event will run when websocket connection is started and bot is ready to work.
+// On ready event will run when websocket connection is started and bot is ready to work.
 func (c *Client) OnReady(fn func()) {
 	c.OnReadyFunction = fn
+}
+
+// On message event will run when someone sends a message.
+func (c *Client) OnMessage(fn func(message *Message)) {
+	c.OnMessageFunction = fn
 }

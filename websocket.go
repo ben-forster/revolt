@@ -37,8 +37,18 @@ func (c *Client) Start() {
 		}
 
 		// Check events
-		if rawData.Type == "Ready" {
+		if rawData.Type == "Ready" && c.OnReadyFunction != nil {
 			c.OnReadyFunction()
+		} else if rawData.Type == "Message" && c.OnMessageFunction != nil {
+			msgData := &Message{}
+			err := json.Unmarshal([]byte(message), msgData)
+
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+
+			msgData.Client = c
+			c.OnMessageFunction(msgData)
 		}
 
 		fmt.Println(message)
