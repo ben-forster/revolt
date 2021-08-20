@@ -9,11 +9,6 @@ import (
 	"github.com/sacOO7/gowebsocket"
 )
 
-// Dummy struct for parse gateway events.
-type GatewayType struct {
-	Type string `json:"type"`
-}
-
 func (c *Client) Start() {
 	// Create new socket
 	c.Socket = gowebsocket.New(WS_URL)
@@ -26,7 +21,9 @@ func (c *Client) Start() {
 
 	c.Socket.OnTextMessage = func(message string, _ gowebsocket.Socket) {
 		// Parse data
-		rawData := &GatewayType{}
+		rawData := &struct {
+			Type string `json:"type"`
+		}{}
 		err := json.Unmarshal([]byte(message), rawData)
 
 		if err != nil {
