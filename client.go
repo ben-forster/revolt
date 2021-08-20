@@ -52,3 +52,23 @@ func (c Client) FetchChannel(id string) (*Channel, error) {
 	channel.Client = &c
 	return channel, nil
 }
+
+// Fetch an user by Id.
+func (c Client) FetchUser(id string) (*User, error) {
+	user := &User{}
+
+	data, err := c.Request("GET", "/users/"+id, []byte{})
+
+	if err != nil {
+		return user, err
+	}
+
+	err = json.Unmarshal(data, user)
+
+	if err != nil {
+		return user, err
+	}
+
+	user.Client = &c
+	return user, nil
+}
