@@ -1,6 +1,8 @@
 package revoltgo
 
 import (
+	"encoding/json"
+
 	"github.com/sacOO7/gowebsocket"
 )
 
@@ -27,4 +29,23 @@ func (c *Client) OnReady(fn func()) {
 // On message event will run when someone sends a message.
 func (c *Client) OnMessage(fn func(message *Message)) {
 	c.OnMessageFunction = fn
+}
+
+// Fetch a channel by Id.
+func (c *Client) FetchChannel(id string) (*Channel, error) {
+	channel := &Channel{}
+
+	data, err := c.Request("GET", "/channels/"+id, "")
+
+	if err != nil {
+		return channel, err
+	}
+
+	err = json.Unmarshal(data, channel)
+
+	if err != nil {
+		return channel, err
+	}
+
+	return channel, nil
 }
