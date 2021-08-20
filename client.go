@@ -2,6 +2,7 @@ package revoltgo
 
 import (
 	"encoding/json"
+	"net/http"
 
 	"github.com/sacOO7/gowebsocket"
 )
@@ -15,6 +16,7 @@ const (
 type Client struct {
 	Token  string
 	Socket gowebsocket.Socket
+	HTTP   *http.Client
 
 	// Event Functions
 	OnReadyFunction   func()
@@ -32,10 +34,10 @@ func (c *Client) OnMessage(fn func(message *Message)) {
 }
 
 // Fetch a channel by Id.
-func (c *Client) FetchChannel(id string) (*Channel, error) {
+func (c Client) FetchChannel(id string) (*Channel, error) {
 	channel := &Channel{}
 
-	data, err := c.Request("GET", "/channels/"+id, "")
+	data, err := c.Request("GET", "/channels/"+id, []byte{})
 
 	if err != nil {
 		return channel, err
@@ -47,5 +49,6 @@ func (c *Client) FetchChannel(id string) (*Channel, error) {
 		return channel, err
 	}
 
+	channel.Client = &c
 	return channel, nil
 }

@@ -3,6 +3,7 @@ package revoltgo
 import (
 	"encoding/json"
 	"fmt"
+	"net/http"
 	"time"
 
 	"github.com/sacOO7/gowebsocket"
@@ -16,6 +17,7 @@ type GatewayType struct {
 func (c *Client) Start() {
 	// Create new socket
 	c.Socket = gowebsocket.New(WS_URL)
+	c.HTTP = &http.Client{}
 
 	// Send auth when connected
 	c.Socket.OnConnected = func(_ gowebsocket.Socket) {
