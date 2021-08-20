@@ -7,8 +7,6 @@ import (
 	"github.com/sacOO7/gowebsocket"
 )
 
-const WS_URL = "wss://ws.revolt.chat"
-
 func (c *Client) Start() {
 	// Create new socket
 	c.Socket = gowebsocket.New(WS_URL)
