@@ -37,6 +37,12 @@ type SendMessageStruct struct {
 	}
 }
 
+// Fetched messages struct.
+type FetchedMessages struct {
+	Messages []*Message `json:"messages"`
+	Users    []*User    `json:"users"`
+}
+
 // Send a message to the channel.
 func (c Channel) SendMessage(message *SendMessageStruct) (*Message, error) {
 	if message.Nonce == "" {
@@ -68,7 +74,7 @@ func (c Channel) SendMessage(message *SendMessageStruct) (*Message, error) {
 
 // Fetch messages from channel.
 // Check: https://developers.revolt.chat/api/#tag/Messaging/paths/~1channels~1:channel~1messages/get for map parameters.
-func (c Channel) FetchMessages(options map[string]interface{}) ([]*Message, error) {
+func (c Channel) FetchMessages(options map[string]interface{}) (*FetchedMessages, error) {
 	// Format url
 	url := "/channels/" + c.Id + "/messages?"
 
@@ -80,7 +86,7 @@ func (c Channel) FetchMessages(options map[string]interface{}) ([]*Message, erro
 
 	url = url[:len(url)-1]
 
-	fetchedMsgs := []*Message{}
+	fetchedMsgs := &FetchedMessages{}
 
 	// Send request
 	resp, err := c.Client.Request("GET", url, []byte{})
@@ -92,12 +98,22 @@ func (c Channel) FetchMessages(options map[string]interface{}) ([]*Message, erro
 	err = json.Unmarshal(resp, &fetchedMsgs)
 
 	if err != nil {
-		return fetchedMsgs, err
+		err = json.Unmarshal([]byte(fmt.Sprintf("{\"messages\": %s}", resp)), &fetchedMsgs)
+
+		if err != nil {
+			return fetchedMsgs, err
+		}
 	}
 
 	// Add client to users & messages
-	for _, msg := range fetchedMsgs {
+	for _, msg := range fetchedMsgs.Messages {
 		msg.Client = c.Client
+	}
+
+	if fetchedMsgs.Users != nil {
+		for _, msg := range fetchedMsgs.Users {
+			msg.Client = c.Client
+		}
 	}
 
 	return fetchedMsgs, nil
