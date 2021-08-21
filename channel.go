@@ -118,3 +118,23 @@ func (c Channel) FetchMessages(options map[string]interface{}) (*FetchedMessages
 
 	return fetchedMsgs, nil
 }
+
+// Fetch a message from channel by Id.
+func (c Channel) FetchMessage(id string) (*Message, error) {
+	msg := &Message{}
+
+	resp, err := c.Client.Request("GET", "/channels/"+c.Id+"/messages/"+id, []byte{})
+
+	if err != nil {
+		return msg, err
+	}
+
+	err = json.Unmarshal(resp, msg)
+
+	if err != nil {
+		return msg, err
+	}
+
+	msg.Client = c.Client
+	return msg, nil
+}
