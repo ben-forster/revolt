@@ -71,3 +71,14 @@ type MessageEmbeddedVideo struct {
 	Width  int    `json:"width"`
 	Height int    `json:"height"`
 }
+
+// Edit message content.
+func (m *Message) Edit(content string) error {
+	_, err := m.Client.Request("PATCH", "/channels/"+m.ChannelId+"/messages/"+m.Id, []byte("{\"content\": \""+content+"\"}"))
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
