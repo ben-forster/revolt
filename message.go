@@ -4,14 +4,15 @@ package revoltgo
 type Message struct {
 	Client *Client
 
-	Id          string        `json:"_id"`
-	Nonce       string        `json:"nonce"`
-	ChannelId   string        `json:"channel"`
-	AuthorId    string        `json:"author"`
-	Content     string        `json:"content"`
-	Attachments []*Attachment `json:"attachments"`
-	Mentions    []string      `json:"mentions"`
-	Replies     []string      `json:"replies"`
+	Id          string          `json:"_id"`
+	Nonce       string          `json:"nonce"`
+	ChannelId   string          `json:"channel"`
+	AuthorId    string          `json:"author"`
+	Content     interface{}     `json:"content"`
+	Embeds      []*MessageEmbed `json:"embeds"`
+	Attachments []*Attachment   `json:"attachments"`
+	Mentions    []string        `json:"mentions"`
+	Replies     []string        `json:"replies"`
 }
 
 // Attachment struct.
@@ -22,7 +23,6 @@ type Attachment struct {
 	FileName    string `json:"filename"`
 	Metadata    *AttachmentMetadata
 	ContentType string `json:"content_type"`
-	Embeds      []*MessageEmbed
 }
 
 // Attachment metadata struct.
