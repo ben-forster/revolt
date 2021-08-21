@@ -80,5 +80,17 @@ func (m *Message) Edit(content string) error {
 		return err
 	}
 
+	m.Content = content
+	return nil
+}
+
+// Delete the message.
+func (m Message) Delete() error {
+	_, err := m.Client.Request("DELETE", "/channels/"+m.ChannelId+"/messages/"+m.Id, []byte{})
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
