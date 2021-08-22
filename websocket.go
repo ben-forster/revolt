@@ -37,8 +37,10 @@ func (c *Client) Start() {
 
 		// Check events
 		if rawData.Type == "Ready" && c.OnReadyFunction != nil {
+			// Ready Event
 			c.OnReadyFunction()
 		} else if rawData.Type == "Message" && c.OnMessageFunction != nil {
+			// Message Event
 			msgData := &Message{}
 			err := json.Unmarshal([]byte(message), msgData)
 
@@ -48,6 +50,35 @@ func (c *Client) Start() {
 
 			msgData.Client = c
 			c.OnMessageFunction(msgData)
+		} else if rawData.Type == "MessageUpdate" && c.OnMessageUpdateFunction != nil {
+			// Message Update Event
+			data := &struct {
+				ChannelId string                 `json:"channel"`
+				MessageId string                 `json:"id"`
+				Payload   map[string]interface{} `json:"data"`
+			}{}
+
+			err := json.Unmarshal([]byte(message), data)
+
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+
+			c.OnMessageUpdateFunction(data.ChannelId, data.MessageId, data.Payload)
+		} else if rawData.Type == "MessageDelete" && c.OnMessageDeleteFunction != nil {
+			// Message Delete Event
+			data := &struct {
+				ChannelId string `json:"channel"`
+				MessageId string `json:"id"`
+			}{}
+
+			err := json.Unmarshal([]byte(message), data)
+
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+
+			c.OnMessageDeleteFunction(data.ChannelId, data.MessageId)
 		}
 
 		fmt.Println(message)

@@ -19,8 +19,10 @@ type Client struct {
 	HTTP   *http.Client
 
 	// Event Functions
-	OnReadyFunction   func()
-	OnMessageFunction func(message *Message)
+	OnReadyFunction         func()
+	OnMessageFunction       func(message *Message)
+	OnMessageUpdateFunction func(channel_id, message_id string, payload map[string]interface{})
+	OnMessageDeleteFunction func(channel_id, message_id string)
 }
 
 // On ready event will run when websocket connection is started and bot is ready to work.
@@ -31,6 +33,16 @@ func (c *Client) OnReady(fn func()) {
 // On message event will run when someone sends a message.
 func (c *Client) OnMessage(fn func(message *Message)) {
 	c.OnMessageFunction = fn
+}
+
+// On message update event will run when someone updates a message.
+func (c *Client) OnMessageUpdate(fn func(channel_id, message_id string, payload map[string]interface{})) {
+	c.OnMessageUpdateFunction = fn
+}
+
+// On message delete event will run when someone deletes a message.
+func (c *Client) OnMessageDelete(fn func(channel_id, message_id string)) {
+	c.OnMessageDeleteFunction = fn
 }
 
 // Fetch a channel by Id.
