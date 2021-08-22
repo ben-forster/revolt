@@ -1,6 +1,10 @@
 package revoltgo
 
-import "time"
+import (
+	"time"
+
+	"github.com/oklog/ulid/v2"
+)
 
 // User struct.
 type User struct {
@@ -34,4 +38,16 @@ type UserStatus struct {
 // Bot information struct.
 type BotInformation struct {
 	Owner string `json:"owner"`
+}
+
+// Calculate creation date and edit the struct.
+func (c *User) CalculateCreationDate() error {
+	ulid, err := ulid.Parse(c.Id)
+
+	if err != nil {
+		return err
+	}
+
+	c.CreatedAt = time.UnixMilli(int64(ulid.Time()))
+	return nil
 }

@@ -1,6 +1,10 @@
 package revoltgo
 
-import "time"
+import (
+	"time"
+
+	"github.com/oklog/ulid/v2"
+)
 
 // Message struct
 type Message struct {
@@ -74,6 +78,18 @@ type MessageEmbeddedVideo struct {
 	Url    string `json:"url"`
 	Width  int    `json:"width"`
 	Height int    `json:"height"`
+}
+
+// Calculate creation date and edit the struct.
+func (c *Message) CalculateCreationDate() error {
+	ulid, err := ulid.Parse(c.Id)
+
+	if err != nil {
+		return err
+	}
+
+	c.CreatedAt = time.UnixMilli(int64(ulid.Time()))
+	return nil
 }
 
 // Edit message content.
