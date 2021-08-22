@@ -169,3 +169,14 @@ func (c *Channel) Edit(ec *EditChannel) error {
 
 	return nil
 }
+
+// Delete channel.
+func (c Channel) Delete() error {
+	_, err := c.Client.Request("DELETE", "/channels/"+c.Id, []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
