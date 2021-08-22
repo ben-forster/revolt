@@ -46,8 +46,9 @@ func (c *Client) OnMessageDelete(fn func(channel_id, message_id string)) {
 }
 
 // Fetch a channel by Id.
-func (c Client) FetchChannel(id string) (*Channel, error) {
+func (c *Client) FetchChannel(id string) (*Channel, error) {
 	channel := &Channel{}
+	channel.Client = c
 
 	data, err := c.Request("GET", "/channels/"+id, []byte{})
 
@@ -60,14 +61,13 @@ func (c Client) FetchChannel(id string) (*Channel, error) {
 	if err != nil {
 		return channel, err
 	}
-
-	channel.Client = &c
 	return channel, nil
 }
 
 // Fetch an user by Id.
-func (c Client) FetchUser(id string) (*User, error) {
+func (c *Client) FetchUser(id string) (*User, error) {
 	user := &User{}
+	user.Client = c
 
 	data, err := c.Request("GET", "/users/"+id, []byte{})
 
@@ -81,6 +81,5 @@ func (c Client) FetchUser(id string) (*User, error) {
 		return user, err
 	}
 
-	user.Client = &c
 	return user, nil
 }

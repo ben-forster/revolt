@@ -22,19 +22,8 @@ type Channel struct {
 	Description        string      `json:"description"`
 	Icon               *Attachment `json:"icon"`
 	DefaultPermissions int         `json:"default_permissions"`
-	RolePermissions    int         `json:"role_permissions"`
+	RolePermissions    interface{} `json:"role_permissions"`
 	Permissions        int         `json:"permissions"`
-}
-
-// Similar to message, but created for sendmessage function.
-type SendMessageStruct struct {
-	Content     string   `json:"content"`
-	Attachments []string `json:"attachments"`
-	Nonce       string   `json:"nonce"`
-	Replies     []struct {
-		Id      string `json:"id"`
-		Mention bool   `json:"mention"`
-	}
 }
 
 // Fetched messages struct.
@@ -44,12 +33,13 @@ type FetchedMessages struct {
 }
 
 // Send a message to the channel.
-func (c Channel) SendMessage(message *SendMessageStruct) (*Message, error) {
+func (c Channel) SendMessage(message *SendMessage) (*Message, error) {
 	if message.Nonce == "" {
-		message.Nonce = genULID()
+		message.CreateNonce()
 	}
 
 	respMessage := &Message{}
+	respMessage.Client = c.Client
 	msgData, err := json.Marshal(message)
 
 	if err != nil {
@@ -68,7 +58,6 @@ func (c Channel) SendMessage(message *SendMessageStruct) (*Message, error) {
 		return respMessage, err
 	}
 
-	respMessage.Client = c.Client
 	return respMessage, nil
 }
 
@@ -122,6 +111,7 @@ func (c Channel) FetchMessages(options map[string]interface{}) (*FetchedMessages
 // Fetch a message from channel by Id.
 func (c Channel) FetchMessage(id string) (*Message, error) {
 	msg := &Message{}
+	msg.Client = c.Client
 
 	resp, err := c.Client.Request("GET", "/channels/"+c.Id+"/messages/"+id, []byte{})
 
@@ -135,6 +125,31 @@ func (c Channel) FetchMessage(id string) (*Message, error) {
 		return msg, err
 	}
 
-	msg.Client = c.Client
 	return msg, nil
+}
+
+// Edit channel.
+func (c *Channel) Edit(ec *EditChannel) error {
+	data, err := json.Marshal(ec)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = c.Client.Request("PATCH", "/channels/"+c.Id, data)
+
+	if err != nil {
+		return err
+	}
+
+	// Change channel struct
+	if ec.Name != "" {
+		c.Name = ec.Name
+	}
+
+	if ec.Description != "" {
+		c.Description = ec.Description
+	}
+
+	return nil
 }
