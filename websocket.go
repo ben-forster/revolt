@@ -88,6 +88,53 @@ func (c *Client) Start() {
 			for _, i := range c.OnMessageDeleteFunctions {
 				i(data.ChannelId, data.MessageId)
 			}
+		} else if rawData.Type == "ChannelCreate" && c.OnChannelCreateFunctions != nil {
+			// Channel create event.
+			channelData := &Channel{}
+
+			err := json.Unmarshal([]byte(message), channelData)
+
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+
+			channelData.Client = c
+
+			for _, i := range c.OnChannelCreateFunctions {
+				i(channelData)
+			}
+		} else if rawData.Type == "ChannelUpdate" && c.OnChannelUpdateFunctions != nil {
+			// Channel update event.
+			data := &struct {
+				ChannelId string                 `json:"id"`
+				Clear     string                 `json:"clear"`
+				Payload   map[string]interface{} `json:"data"`
+			}{}
+
+			err := json.Unmarshal([]byte(message), data)
+
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+
+			for _, i := range c.OnChannelUpdateFunctions {
+				i(data.ChannelId, data.Clear, data.Payload)
+			}
+		} else if rawData.Type == "ChannelDelete" && c.OnChannelDeleteFunctions != nil {
+			// Channel delete event.
+			data := &struct {
+				ChannelId string `json:"id"`
+			}{}
+
+			err := json.Unmarshal([]byte(message), data)
+
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+
+			for _, i := range c.OnChannelDeleteFunctions {
+				i(data.ChannelId)
+			}
 		}
 
 		fmt.Println(message)

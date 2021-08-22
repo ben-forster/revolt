@@ -23,6 +23,9 @@ type Client struct {
 	OnMessageFunctions       []func(message *Message)
 	OnMessageUpdateFunctions []func(channel_id, message_id string, payload map[string]interface{})
 	OnMessageDeleteFunctions []func(channel_id, message_id string)
+	OnChannelCreateFunctions []func(channel *Channel)
+	OnChannelUpdateFunctions []func(channel_id, clear string, payload map[string]interface{})
+	OnChannelDeleteFunctions []func(channel_id string)
 }
 
 // On ready event will run when websocket connection is started and bot is ready to work.
@@ -43,6 +46,21 @@ func (c *Client) OnMessageUpdate(fn func(channel_id, message_id string, payload 
 // On message delete event will run when someone deletes a message.
 func (c *Client) OnMessageDelete(fn func(channel_id, message_id string)) {
 	c.OnMessageDeleteFunctions = append(c.OnMessageDeleteFunctions, fn)
+}
+
+// On channel create event will run when someone creates a channel.
+func (c *Client) OnChannelCreate(fn func(channel *Channel)) {
+	c.OnChannelCreateFunctions = append(c.OnChannelCreateFunctions, fn)
+}
+
+// On channel update event will run when someone updates a channel.
+func (c *Client) OnChannelUpdate(fn func(channel_id, clear string, payload map[string]interface{})) {
+	c.OnChannelUpdateFunctions = append(c.OnChannelUpdateFunctions, fn)
+}
+
+// On channel delete event will run when someone deletes a channel.
+func (c *Client) OnChannelDelete(fn func(channel_id string)) {
+	c.OnChannelDeleteFunctions = append(c.OnChannelDeleteFunctions, fn)
 }
 
 // Fetch a channel by Id.

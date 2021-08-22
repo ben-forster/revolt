@@ -2,13 +2,13 @@ package revoltgo
 
 // Similar to message, but created for send message function.
 type SendMessage struct {
-	Content     string   `json:"content"`
-	Attachments []string `json:"attachments"`
-	Nonce       string   `json:"nonce"`
+	Content     string   `json:"content,omitempty"`
+	Attachments []string `json:"attachments,omitempty"`
+	Nonce       string   `json:"nonce,omitempty"`
 	Replies     []struct {
-		Id      string `json:"id"`
-		Mention bool   `json:"mention"`
-	}
+		Id      string `json:"id,omitempty"`
+		Mention bool   `json:"mention,omitempty"`
+	} `json:"replies,omitempty"`
 }
 
 // Set content.
@@ -26,8 +26,8 @@ func (sms *SendMessage) AddAttachment(attachment string) *SendMessage {
 // Add a new reply.
 func (sms *SendMessage) AddReply(id string, mention bool) *SendMessage {
 	sms.Replies = append(sms.Replies, struct {
-		Id      string "json:\"id\""
-		Mention bool   "json:\"mention\""
+		Id      string "json:\"id,omitempty\""
+		Mention bool   "json:\"mention,omitempty\""
 	}{
 		Id:      id,
 		Mention: mention,
