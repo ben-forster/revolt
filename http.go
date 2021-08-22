@@ -2,6 +2,7 @@ package revoltgo
 
 import (
 	"bytes"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 )
@@ -24,6 +25,10 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 
 	if err != nil {
 		return []byte{}, err
+	}
+
+	if !(resp.StatusCode >= 200 && resp.StatusCode < 300) {
+		return []byte{}, fmt.Errorf(resp.Status)
 	}
 
 	defer resp.Body.Close()

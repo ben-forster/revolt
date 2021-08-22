@@ -1,8 +1,11 @@
 package revoltgo
 
+import "time"
+
 // User struct.
 type User struct {
-	Client *Client
+	Client    *Client
+	CreatedAt time.Time
 
 	Id             string           `json:"_id"`
 	Username       string           `json:"username"`

@@ -1,8 +1,11 @@
 package revoltgo
 
+import "time"
+
 // Message struct
 type Message struct {
-	Client *Client
+	Client    *Client
+	CreatedAt time.Time
 
 	Id          string          `json:"_id"`
 	Nonce       string          `json:"nonce"`

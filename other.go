@@ -45,10 +45,10 @@ func (sms *SendMessage) CreateNonce() *SendMessage {
 // Edit channel struct.
 // Please see: https://developers.revolt.chat/api/#tag/Channel-Information/paths/~1channels~1:channel/patch for more information.
 type EditChannel struct {
-	Name        string `json:"name"`
-	Description string `json:"description"`
-	Icon        string `json:"icon"`
-	Remove      string `json:"remove"`
+	Name        string `json:"name,omitempty"`
+	Description string `json:"description,omitempty"`
+	Icon        string `json:"icon,omitempty"`
+	Remove      string `json:"remove,omitempty"`
 }
 
 // Set name for struct.

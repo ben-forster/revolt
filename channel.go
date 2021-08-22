@@ -4,11 +4,15 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"time"
+
+	"github.com/oklog/ulid/v2"
 )
 
 // Channel struct.
 type Channel struct {
-	Client *Client
+	Client    *Client
+	CreatedAt time.Time
 
 	Id                 string      `json:"_id"`
 	ChannelType        string      `json:"channel_type"`
@@ -30,6 +34,18 @@ type Channel struct {
 type FetchedMessages struct {
 	Messages []*Message `json:"messages"`
 	Users    []*User    `json:"users"`
+}
+
+// Calculate creation date and edit the struct.
+func (c *Channel) CalculateCreationDate() error {
+	ulid, err := ulid.Parse(c.Id)
+
+	if err != nil {
+		return err
+	}
+
+	c.CreatedAt = time.UnixMilli(int64(ulid.Time()))
+	return nil
 }
 
 // Send a message to the channel.
