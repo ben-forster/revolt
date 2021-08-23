@@ -180,3 +180,25 @@ func (c Channel) Delete() error {
 
 	return nil
 }
+
+// Create a new invite.
+// Returns a string (invite code) and error (nil if not exists).
+func (c Channel) CreateInvite() (string, error) {
+	data, err := c.Client.Request("POST", "/channels/"+c.Id+"/invites", []byte{})
+
+	if err != nil {
+		return "", err
+	}
+
+	dataStruct := &struct {
+		InviteCode string `json:"code"`
+	}{}
+
+	err = json.Unmarshal(data, dataStruct)
+
+	if err != nil {
+		return dataStruct.InviteCode, err
+	}
+
+	return dataStruct.InviteCode, nil
+}
