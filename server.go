@@ -1,7 +1,12 @@
 package revoltgo
 
+import "time"
+
 // Server struct.
 type Server struct {
+	Client    *Client
+	CreatedAt time.Time
+
 	Id                 string                 `json:"_id"`
 	Nonce              string                 `json:"nonce"`
 	OwnerId            string                 `json:"owner"`

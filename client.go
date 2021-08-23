@@ -101,3 +101,23 @@ func (c *Client) FetchUser(id string) (*User, error) {
 
 	return user, nil
 }
+
+// Fetch a server by Id.
+func (c *Client) FetchServer(id string) (*Server, error) {
+	server := &Server{}
+	server.Client = c
+
+	data, err := c.Request("GET", "/servers/"+id, []byte{})
+
+	if err != nil {
+		return server, err
+	}
+
+	err = json.Unmarshal(data, server)
+
+	if err != nil {
+		return server, err
+	}
+
+	return server, nil
+}
