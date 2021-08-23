@@ -53,18 +53,30 @@ type EditChannel struct {
 
 // Set name for struct.
 func (ec *EditChannel) SetName(name string) *EditChannel {
+	if len(name) < 1 || len(name) > 32 {
+		return ec
+	}
+
 	ec.Name = name
 	return ec
 }
 
 // Set description for struct.
 func (ec *EditChannel) SetDescription(desc string) *EditChannel {
+	if len(desc) > 1024 {
+		return ec
+	}
+
 	ec.Description = desc
 	return ec
 }
 
 // Set icon for struct.
 func (ec *EditChannel) SetIcon(autumn_id string) *EditChannel {
+	if len(autumn_id) < 1 || len(autumn_id) > 128 {
+		return ec
+	}
+
 	ec.Icon = autumn_id
 	return ec
 }
@@ -77,4 +89,78 @@ func (ec *EditChannel) RemoveItem(item string) *EditChannel {
 
 	ec.Remove = item
 	return ec
+}
+
+// Edit server struct.
+// Please see https://developers.revolt.chat/api/#tag/Server-Information/paths/~1servers~1:server/patch for more detail.
+type EditServer struct {
+	Name           string            `json:"name,omitempty"`
+	Description    string            `json:"description,omitempty"`
+	Icon           string            `json:"icon,omitempty"`
+	Banner         string            `json:"banner,omitempty"`
+	Categories     []*ServerCategory `json:"categories,omitempty"`
+	SystemMessages *SystemMessages   `json:"system_messages,omitempty"`
+	Remove         string            `json:"remove,omitempty"`
+}
+
+// Set name for struct
+func (es *EditServer) SetName(name string) *EditServer {
+	if len(name) < 1 || len(name) > 32 {
+		return es
+	}
+
+	es.Name = name
+	return es
+}
+
+// Set description for struct.
+func (es *EditServer) SetDescription(desc string) *EditServer {
+	if len(desc) > 1024 {
+		return es
+	}
+
+	es.Description = desc
+	return es
+}
+
+// Set icon for struct.
+func (es *EditServer) SetIcon(autumn_id string) *EditServer {
+	if len(autumn_id) < 1 || len(autumn_id) > 128 {
+		return es
+	}
+
+	es.Icon = autumn_id
+	return es
+}
+
+// Set banner for struct.
+func (es *EditServer) SetBanner(autumn_id string) *EditServer {
+	if len(autumn_id) < 1 || len(autumn_id) > 128 {
+		return es
+	}
+
+	es.Banner = autumn_id
+	return es
+}
+
+// Add a new category for struct.
+func (es *EditServer) AddCategory(category *ServerCategory) *EditServer {
+	es.Categories = append(es.Categories, category)
+	return es
+}
+
+// Set system messages for struct.
+func (es *EditServer) SetSystemMessages(sm *SystemMessages) *EditServer {
+	es.SystemMessages = sm
+	return es
+}
+
+// Set remove item.
+func (es *EditServer) RemoveItem(item string) *EditServer {
+	if item != "Description" && item != "Banner" && item != "Icon" {
+		return es
+	}
+
+	es.Remove = item
+	return es
 }

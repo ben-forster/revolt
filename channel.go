@@ -158,15 +158,6 @@ func (c *Channel) Edit(ec *EditChannel) error {
 		return err
 	}
 
-	// Change channel struct
-	if ec.Name != "" {
-		c.Name = ec.Name
-	}
-
-	if ec.Description != "" {
-		c.Description = ec.Description
-	}
-
 	return nil
 }
 

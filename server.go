@@ -17,7 +17,7 @@ type Server struct {
 	Name               string                 `json:"name"`
 	Description        string                 `json:"description"`
 	ChannelIds         []string               `json:"channels"`
-	Categories         []*ServerCategories    `json:"categories"`
+	Categories         []*ServerCategory      `json:"categories"`
 	SystemMessages     *SystemMessages        `json:"system_messages"`
 	Roles              map[string]interface{} `json:"roles"`
 	DefaultPermissions []interface{}          `json:"default_permissions"`
@@ -26,7 +26,7 @@ type Server struct {
 }
 
 // Server categories struct.
-type ServerCategories struct {
+type ServerCategory struct {
 	Id         string   `json:"id"`
 	Title      string   `json:"title"`
 	ChannelIds []string `json:"channels"`
@@ -34,10 +34,10 @@ type ServerCategories struct {
 
 // System messages struct.
 type SystemMessages struct {
-	UserJoined string `json:"user_joined"`
-	UserLeft   string `json:"user_left"`
-	UserKicked string `json:"user_kicker"`
-	UserBanned string `json:"user_banned"`
+	UserJoined string `json:"user_joined,omitempty"`
+	UserLeft   string `json:"user_left,omitempty"`
+	UserKicked string `json:"user_kicker,omitempty"`
+	UserBanned string `json:"user_banned,omitempty"`
 }
 
 // Calculate creation date and edit the struct.
