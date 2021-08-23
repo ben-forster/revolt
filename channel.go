@@ -145,7 +145,7 @@ func (c Channel) FetchMessage(id string) (*Message, error) {
 }
 
 // Edit channel.
-func (c *Channel) Edit(ec *EditChannel) error {
+func (c Channel) Edit(ec *EditChannel) error {
 	data, err := json.Marshal(ec)
 
 	if err != nil {

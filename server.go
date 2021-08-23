@@ -1,6 +1,7 @@
 package revoltgo
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/oklog/ulid/v2"
@@ -49,5 +50,22 @@ func (c *Server) CalculateCreationDate() error {
 	}
 
 	c.CreatedAt = time.UnixMilli(int64(ulid.Time()))
+	return nil
+}
+
+// Edit server.
+func (c Server) Edit(es *EditServer) error {
+	data, err := json.Marshal(es)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = c.Client.Request("PATCH", "/servers/"+c.Id, data)
+
+	if err != nil {
+		return err
+	}
+
 	return nil
 }
