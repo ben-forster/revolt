@@ -41,13 +41,18 @@ type BotInformation struct {
 }
 
 // Calculate creation date and edit the struct.
-func (c *User) CalculateCreationDate() error {
-	ulid, err := ulid.Parse(c.Id)
+func (u *User) CalculateCreationDate() error {
+	ulid, err := ulid.Parse(u.Id)
 
 	if err != nil {
 		return err
 	}
 
-	c.CreatedAt = time.UnixMilli(int64(ulid.Time()))
+	u.CreatedAt = time.UnixMilli(int64(ulid.Time()))
 	return nil
+}
+
+// Create a mention format.
+func (u User) FormatMention() string {
+	return "<@" + u.Id + ">"
 }
