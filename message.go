@@ -1,6 +1,7 @@
 package revoltgo
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/oklog/ulid/v2"
@@ -113,4 +114,37 @@ func (m Message) Delete() error {
 	}
 
 	return nil
+}
+
+// Reply to the message.
+func (m Message) Reply(mention bool, sm *SendMessage) (*Message, error) {
+	if sm.Nonce == "" {
+		sm.CreateNonce()
+	}
+
+	if len(sm.Content) < 1968 && mention {
+		sm.Content = "<@" + m.AuthorId + ">, " + sm.Content
+	}
+
+	respMessage := &Message{}
+	respMessage.Client = m.Client
+	msgData, err := json.Marshal(sm)
+
+	if err != nil {
+		return respMessage, err
+	}
+
+	resp, err := m.Client.Request("POST", "/channels/"+m.ChannelId+"/messages", msgData)
+
+	if err != nil {
+		return respMessage, err
+	}
+
+	err = json.Unmarshal(resp, respMessage)
+
+	if err != nil {
+		return respMessage, err
+	}
+
+	return respMessage, nil
 }
