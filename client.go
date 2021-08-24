@@ -182,3 +182,51 @@ func (c *Client) Auth() error {
 
 	return nil
 }
+
+// Get a channel from cache by Id.
+// Will return an empty channel struct if not found.
+func (c *Cache) GetChannel(id string) *Channel {
+	for _, i := range c.Channels {
+		if i.Id == id {
+			return i
+		}
+	}
+
+	return &Channel{}
+}
+
+// Get a server from cache by Id.
+// Will return an empty server struct if not found.
+func (c *Cache) GetServer(id string) *Server {
+	for _, i := range c.Servers {
+		if i.Id == id {
+			return i
+		}
+	}
+
+	return &Server{}
+}
+
+// Get an user from cache by Id.
+// Will return an empty user struct if not found.
+func (c *Cache) GetUser(id string) *User {
+	for _, i := range c.Users {
+		if i.Id == id {
+			return i
+		}
+	}
+
+	return &User{}
+}
+
+// Get a member from cache by Id.
+// Will return an empty member struct if not found.
+func (c *Cache) GetMember(id string) *Member {
+	for _, i := range c.Members {
+		if i.Informations.UserId == id {
+			return i
+		}
+	}
+
+	return &Member{}
+}
