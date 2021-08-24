@@ -20,7 +20,7 @@ type Channel struct {
 	Nonce              string      `json:"nonce"`
 	Active             bool        `json:"active"`
 	Recipients         []string    `json:"recipients"`
-	LastMessage        string      `json:"last_message"`
+	LastMessage        interface{} `json:"last_message"`
 	Name               string      `json:"name"`
 	OwnerId            string      `json:"owner"`
 	Description        string      `json:"description"`

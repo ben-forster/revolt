@@ -19,6 +19,7 @@ type Client struct {
 	Token   string
 	Socket  gowebsocket.Socket
 	HTTP    *http.Client
+	Cache   *Cache
 
 	// Event Functions
 	OnReadyFunctions         []func()
@@ -28,6 +29,14 @@ type Client struct {
 	OnChannelCreateFunctions []func(channel *Channel)
 	OnChannelUpdateFunctions []func(channel_id, clear string, payload map[string]interface{})
 	OnChannelDeleteFunctions []func(channel_id string)
+}
+
+// Client cache struct.
+type Cache struct {
+	Users    []*User    `json:"users"`
+	Servers  []*Server  `json:"servers"`
+	Channels []*Channel `json:"channels"`
+	Members  []*Member  `json:"members"`
 }
 
 // Self bot struct.

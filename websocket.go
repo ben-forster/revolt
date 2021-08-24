@@ -42,7 +42,7 @@ func (c *Client) Start() {
 
 		// Handle events
 		c.handleEvents(rawData, message)
-		fmt.Println(message)
+		// fmt.Println(message)
 	}
 
 	// Start connection
@@ -75,10 +75,15 @@ func (c *Client) ping() {
 func (c *Client) handleEvents(rawData *struct {
 	Type string `json:"type"`
 }, message string) {
-	if rawData.Type == "Ready" && c.OnReadyFunctions != nil {
+	if rawData.Type == "Ready" {
+		// Add cache
+		c.handleCache(message)
+
 		// Ready Event
-		for _, i := range c.OnReadyFunctions {
-			i()
+		if c.OnReadyFunctions != nil {
+			for _, i := range c.OnReadyFunctions {
+				i()
+			}
 		}
 	} else if rawData.Type == "Message" && c.OnMessageFunctions != nil {
 		// Message Event
@@ -175,4 +180,29 @@ func (c *Client) handleEvents(rawData *struct {
 			i(data.ChannelId)
 		}
 	}
+}
+
+func (c *Client) handleCache(data string) {
+	cache := &Cache{}
+
+	err := json.Unmarshal([]byte(data), cache)
+
+	if err != nil {
+		fmt.Printf("Unexcepted Error: %s", err)
+	}
+
+	// Add client to users.
+	for _, i := range cache.Users {
+		i.Client = c
+	}
+
+	for _, i := range cache.Servers {
+		i.Client = c
+	}
+
+	for _, i := range cache.Channels {
+		i.Client = c
+	}
+
+	c.Cache = cache
 }
