@@ -27,15 +27,15 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 		return []byte{}, err
 	}
 
-	if !(resp.StatusCode >= 200 && resp.StatusCode < 300) {
-		return []byte{}, fmt.Errorf(resp.Status)
-	}
-
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
 
 	if err != nil {
 		return []byte{}, err
+	}
+
+	if !(resp.StatusCode >= 200 && resp.StatusCode < 300) {
+		return []byte{}, fmt.Errorf("%s: %s", resp.Status, body)
 	}
 
 	return body, nil

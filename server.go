@@ -42,26 +42,26 @@ type SystemMessages struct {
 }
 
 // Calculate creation date and edit the struct.
-func (c *Server) CalculateCreationDate() error {
-	ulid, err := ulid.Parse(c.Id)
+func (s *Server) CalculateCreationDate() error {
+	ulid, err := ulid.Parse(s.Id)
 
 	if err != nil {
 		return err
 	}
 
-	c.CreatedAt = time.UnixMilli(int64(ulid.Time()))
+	s.CreatedAt = time.UnixMilli(int64(ulid.Time()))
 	return nil
 }
 
 // Edit server.
-func (c Server) Edit(es *EditServer) error {
+func (s Server) Edit(es *EditServer) error {
 	data, err := json.Marshal(es)
 
 	if err != nil {
 		return err
 	}
 
-	_, err = c.Client.Request("PATCH", "/servers/"+c.Id, data)
+	_, err = s.Client.Request("PATCH", "/servers/"+s.Id, data)
 
 	if err != nil {
 		return err
@@ -73,12 +73,52 @@ func (c Server) Edit(es *EditServer) error {
 // Delete / leave server.
 // If the server not created by client, it will leave.
 // Otherwise it will be deleted.
-func (c Server) Delete() error {
-	_, err := c.Client.Request("DELETE", "/servers/"+c.Id, []byte{})
+func (s Server) Delete() error {
+	_, err := s.Client.Request("DELETE", "/servers/"+s.Id, []byte{})
 
 	if err != nil {
 		return err
 	}
 
 	return nil
+}
+
+// Create a new text-channel.
+func (s Server) CreateTextChannel(name, description string) (*Channel, error) {
+	channel := &Channel{}
+	channel.Client = s.Client
+
+	data, err := s.Client.Request("POST", "/servers/"+s.Id+"/channels", []byte("{\"type\":\"Text\",\"name\":\""+name+"\",\"description\":\""+description+"\",\"nonce\":\""+genULID()+"\"}"))
+
+	if err != nil {
+		return channel, err
+	}
+
+	err = json.Unmarshal(data, channel)
+
+	if err != nil {
+		return channel, err
+	}
+
+	return channel, nil
+}
+
+// Create a new voice-channel.
+func (s Server) CreateVoiceChannel(name, description string) (*Channel, error) {
+	channel := &Channel{}
+	channel.Client = s.Client
+
+	data, err := s.Client.Request("POST", "/servers/"+s.Id+"/channels", []byte("{\"type\":\"Voice\",\"name\":\""+name+"\",\"description\":\""+description+"\",\"nonce\":\""+genULID()+"\"}"))
+
+	if err != nil {
+		return channel, err
+	}
+
+	err = json.Unmarshal(data, channel)
+
+	if err != nil {
+		return channel, err
+	}
+
+	return channel, nil
 }

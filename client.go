@@ -127,7 +127,7 @@ func (c *Client) CreateServer(name, description string) (*Server, error) {
 	server := &Server{}
 	server.Client = c
 
-	data, err := c.Request("POST", "/servers/create", []byte("{\"name\": \""+name+"\", \"description\": \""+description+"\", \"nonce\": \""+genULID()+"\"}"))
+	data, err := c.Request("POST", "/servers/create", []byte("{\"name\":\""+name+"\",\"description\":\""+description+"\",\"nonce\":\""+genULID()+"\"}"))
 
 	if err != nil {
 		return server, err
