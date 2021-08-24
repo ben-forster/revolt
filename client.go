@@ -159,7 +159,7 @@ func (c *Client) Auth() error {
 		return fmt.Errorf("can't auth user (not a self-bot.)")
 	}
 
-	resp, err := c.Request("POST", "/auth/login", []byte("{\"email\":\""+c.SelfBot.Email+"\",\"password\":\""+c.SelfBot.Password+"\"}"))
+	resp, err := c.Request("POST", "/auth/login", []byte("{\"email\":\""+c.SelfBot.Email+"\",\"password\":\""+c.SelfBot.Password+"\",\"captcha\": \"\"}"))
 
 	if err != nil {
 		return err

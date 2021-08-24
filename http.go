@@ -17,8 +17,15 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 		return []byte{}, err
 	}
 
-	req.Header.Set("X-Bot-Token", c.Token)
-	req.Header.Set("Content-Type", "application/json")
+	req.Header.Set("content-type", "application/json")
+
+	// Set auth headers
+	if c.SelfBot == nil {
+		req.Header.Set("x-bot-token", c.Token)
+	} else if c.SelfBot.SessionToken != "" && c.SelfBot.UserId != "" {
+		req.Header.Set("x-user-id", c.SelfBot.UserId)
+		req.Header.Set("x-session-token", c.SelfBot.SessionToken)
+	}
 
 	// Send request
 	resp, err := c.HTTP.Do(req)
@@ -29,6 +36,7 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
+	fmt.Println(string(body))
 
 	if err != nil {
 		return []byte{}, err
