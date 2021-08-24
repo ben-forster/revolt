@@ -69,3 +69,16 @@ func (c Server) Edit(es *EditServer) error {
 
 	return nil
 }
+
+// Delete / leave server.
+// If the server not created by client, it will leave.
+// Otherwise it will be deleted.
+func (c Server) Delete() error {
+	_, err := c.Client.Request("DELETE", "/servers/"+c.Id, []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
