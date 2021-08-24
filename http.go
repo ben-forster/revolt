@@ -36,7 +36,6 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 
 	defer resp.Body.Close()
 	body, err := ioutil.ReadAll(resp.Body)
-	fmt.Println(string(body))
 
 	if err != nil {
 		return []byte{}, err

@@ -41,6 +41,17 @@ type SystemMessages struct {
 	UserBanned string `json:"user_banned,omitempty"`
 }
 
+// Server member struct.
+type Member struct {
+	Informations struct {
+		ServerId string `json:"server"`
+		UserId   string `json:"user"`
+	} `json:"_id"`
+	Nickname string      `json:"nickname"`
+	Avatar   *Attachment `json:"avatar"`
+	Roles    []string    `json:"roles"`
+}
+
 // Calculate creation date and edit the struct.
 func (s *Server) CalculateCreationDate() error {
 	ulid, err := ulid.Parse(s.Id)
@@ -122,3 +133,29 @@ func (s Server) CreateVoiceChannel(name, description string) (*Channel, error) {
 
 	return channel, nil
 }
+
+// Fetch a member from Server.
+func (s Server) FetchMember(id string) (*Member, error) {
+	member := &Member{}
+
+	data, err := s.Client.Request("GET", "/servers/"+s.Id+"/members/"+id, []byte{})
+
+	if err != nil {
+		return member, err
+	}
+
+	err = json.Unmarshal(data, member)
+
+	if err != nil {
+		return member, err
+	}
+
+	return member, nil
+}
+
+// // Fetch all server invites.
+// func (s Server) FetchInvites() {
+// 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
+
+// 	fmt.Println("\n\n" + string(data) + "\n\n")
+// }
