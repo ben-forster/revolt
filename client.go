@@ -2,6 +2,7 @@ package revoltgo
 
 import (
 	"encoding/json"
+	"fmt"
 	"net/http"
 
 	"github.com/sacOO7/gowebsocket"
@@ -12,11 +13,12 @@ const (
 	API_URL = "https://api.revolt.chat"
 )
 
-// Client struct
+// Client struct.
 type Client struct {
-	Token  string
-	Socket gowebsocket.Socket
-	HTTP   *http.Client
+	SelfBot *SelfBot
+	Token   string
+	Socket  gowebsocket.Socket
+	HTTP    *http.Client
 
 	// Event Functions
 	OnReadyFunctions         []func()
@@ -26,6 +28,15 @@ type Client struct {
 	OnChannelCreateFunctions []func(channel *Channel)
 	OnChannelUpdateFunctions []func(channel_id, clear string, payload map[string]interface{})
 	OnChannelDeleteFunctions []func(channel_id string)
+}
+
+// Self bot struct.
+type SelfBot struct {
+	Email        string `json:"-"`
+	Password     string `json:"-"`
+	Id           string `json:"id"`
+	UserId       string `json:"user_id"`
+	SessionToken string `json:"session_token"`
 }
 
 // On ready event will run when websocket connection is started and bot is ready to work.
@@ -140,4 +151,25 @@ func (c *Client) CreateServer(name, description string) (*Server, error) {
 	}
 
 	return server, nil
+}
+
+// Auth client user.
+func (c *Client) Auth() error {
+	if c.SelfBot == nil {
+		return fmt.Errorf("can't auth user (not a self-bot.)")
+	}
+
+	resp, err := c.Request("POST", "/auth/login", []byte("{\"email\":\""+c.SelfBot.Email+"\",\"password\":\""+c.SelfBot.Password+"\"}"))
+
+	if err != nil {
+		return err
+	}
+
+	err = json.Unmarshal(resp, c.SelfBot)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
