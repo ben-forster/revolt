@@ -121,3 +121,23 @@ func (c *Client) FetchServer(id string) (*Server, error) {
 
 	return server, nil
 }
+
+// Create a server.
+func (c *Client) CreateServer(name, description string) (*Server, error) {
+	server := &Server{}
+	server.Client = c
+
+	data, err := c.Request("POST", "/servers/create", []byte("{\"name\": \""+name+"\", \"description\": \""+description+"\", \"nonce\": \""+genULID()+"\"}"))
+
+	if err != nil {
+		return server, err
+	}
+
+	err = json.Unmarshal(data, server)
+
+	if err != nil {
+		return server, err
+	}
+
+	return server, nil
+}
