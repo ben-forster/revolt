@@ -58,6 +58,18 @@ type FetchedMembers struct {
 	Users   []*User   `json:"users"`
 }
 
+// Fetched bans struct.
+type FetchedBans struct {
+	Users []*User `json:"users"`
+	Bans  []struct {
+		Ids struct {
+			UserId   string `json:"user"`
+			ServerUd string `json:"server"`
+		} `json:"_id"`
+		Reason string `json:"reason"`
+	} `json:"bans"`
+}
+
 // Calculate creation date and edit the struct.
 func (s *Server) CalculateCreationDate() error {
 	ulid, err := ulid.Parse(s.Id)
@@ -231,6 +243,30 @@ func (s Server) UnbanMember(id string) error {
 	}
 
 	return nil
+}
+
+// Fetch server bans.
+func (s Server) FetchBans() (*FetchedBans, error) {
+	bans := &FetchedBans{}
+
+	data, err := s.Client.Request("GET", "/servers/"+s.Id+"/bans", []byte{})
+
+	if err != nil {
+		return bans, err
+	}
+
+	err = json.Unmarshal(data, bans)
+
+	if err != nil {
+		return bans, err
+	}
+
+	// Add client to the user
+	for _, i := range bans.Users {
+		i.Client = s.Client
+	}
+
+	return bans, nil
 }
 
 // // Fetch all server invites.
