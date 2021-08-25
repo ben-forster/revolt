@@ -211,6 +211,28 @@ func (s Server) KickMember(id string) error {
 	return nil
 }
 
+// Ban a member from server.
+func (s Server) BanMember(id, reason string) error {
+	_, err := s.Client.Request("PUT", "/servers/"+s.Id+"/bans/"+id, []byte("{\"reason\":\""+reason+"\"}"))
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Unban a member from server.
+func (s Server) UnbanMember(id string) error {
+	_, err := s.Client.Request("DELETE", "/servers/"+s.Id+"/bans/"+id, []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // // Fetch all server invites.
 // func (s Server) FetchInvites() {
 // 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
