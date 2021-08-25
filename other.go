@@ -1,5 +1,7 @@
 package revoltgo
 
+import "fmt"
+
 // Similar to message, but created for send message function.
 type SendMessage struct {
 	Content     string   `json:"content,omitempty"`
@@ -14,6 +16,12 @@ type SendMessage struct {
 // Set content.
 func (sms *SendMessage) SetContent(content string) *SendMessage {
 	sms.Content = content
+	return sms
+}
+
+// Set and format content.
+func (sms *SendMessage) SetContentf(format string, values ...interface{}) *SendMessage {
+	sms.Content = fmt.Sprintf(format, values...)
 	return sms
 }
 

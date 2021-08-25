@@ -122,9 +122,7 @@ func (m Message) Reply(mention bool, sm *SendMessage) (*Message, error) {
 		sm.CreateNonce()
 	}
 
-	if len(sm.Content) < 1968 && mention {
-		sm.Content = "<@" + m.AuthorId + ">, " + sm.Content
-	}
+	sm.AddReply(m.Id, mention)
 
 	respMessage := &Message{}
 	respMessage.Client = m.Client
