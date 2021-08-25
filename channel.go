@@ -25,9 +25,9 @@ type Channel struct {
 	OwnerId            string      `json:"owner"`
 	Description        string      `json:"description"`
 	Icon               *Attachment `json:"icon"`
-	DefaultPermissions int         `json:"default_permissions"`
+	DefaultPermissions uint        `json:"default_permissions"`
 	RolePermissions    interface{} `json:"role_permissions"`
-	Permissions        int         `json:"permissions"`
+	Permissions        uint        `json:"permissions"`
 }
 
 // Fetched messages struct.
