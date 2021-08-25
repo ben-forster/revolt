@@ -144,5 +144,12 @@ func (m Message) Reply(mention bool, sm *SendMessage) (*Message, error) {
 		return respMessage, err
 	}
 
+	if sm.DeleteAfter != 0 {
+		go func() {
+			time.Sleep(time.Second * time.Duration(sm.DeleteAfter))
+			respMessage.Delete()
+		}()
+	}
+
 	return respMessage, nil
 }

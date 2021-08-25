@@ -7,6 +7,7 @@ type SendMessage struct {
 	Content     string   `json:"content,omitempty"`
 	Attachments []string `json:"attachments,omitempty"`
 	Nonce       string   `json:"nonce,omitempty"`
+	DeleteAfter uint     `json:"-"`
 	Replies     []struct {
 		Id      string `json:"id,omitempty"`
 		Mention bool   `json:"mention,omitempty"`
@@ -22,6 +23,12 @@ func (sms *SendMessage) SetContent(content string) *SendMessage {
 // Set and format content.
 func (sms *SendMessage) SetContentf(format string, values ...interface{}) *SendMessage {
 	sms.Content = fmt.Sprintf(format, values...)
+	return sms
+}
+
+// Set delete after option.
+func (sms *SendMessage) SetDeleteAfter(second uint) *SendMessage {
+	sms.DeleteAfter = second
 	return sms
 }
 

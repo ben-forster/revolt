@@ -74,6 +74,13 @@ func (c Channel) SendMessage(message *SendMessage) (*Message, error) {
 		return respMessage, err
 	}
 
+	if message.DeleteAfter != 0 {
+		go func() {
+			time.Sleep(time.Second * time.Duration(message.DeleteAfter))
+			respMessage.Delete()
+		}()
+	}
+
 	return respMessage, nil
 }
 
