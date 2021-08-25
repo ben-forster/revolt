@@ -154,8 +154,20 @@ func (s Server) FetchMember(id string) (*Member, error) {
 }
 
 // Edit a member.
-func (s Server) EditMember(id string) {
+func (s Server) EditMember(id string, em *EditMember) error {
+	data, err := json.Marshal(em)
 
+	if err != nil {
+		return err
+	}
+
+	_, err = s.Client.Request("PATCH", "/servers/"+s.Id+"/members/"+id, data)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // // Fetch all server invites.
