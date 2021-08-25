@@ -52,6 +52,12 @@ type Member struct {
 	Roles    []string    `json:"roles"`
 }
 
+// Fetched members struct.
+type FetchedMembers struct {
+	Members []*Member `json:"members"`
+	Users   []*User   `json:"users"`
+}
+
 // Calculate creation date and edit the struct.
 func (s *Server) CalculateCreationDate() error {
 	ulid, err := ulid.Parse(s.Id)
@@ -151,6 +157,30 @@ func (s Server) FetchMember(id string) (*Member, error) {
 	}
 
 	return member, nil
+}
+
+// Fetch all of the members from Server.
+func (s Server) FetchMembers() (*FetchedMembers, error) {
+	members := &FetchedMembers{}
+
+	data, err := s.Client.Request("GET", "/servers/"+s.Id+"/members", []byte{})
+
+	if err != nil {
+		return members, err
+	}
+
+	err = json.Unmarshal(data, members)
+
+	if err != nil {
+		return members, err
+	}
+
+	// Add client to the user
+	for _, i := range members.Users {
+		i.Client = s.Client
+	}
+
+	return members, nil
 }
 
 // Edit a member.
