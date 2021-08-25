@@ -164,3 +164,48 @@ func (es *EditServer) RemoveItem(item string) *EditServer {
 	es.Remove = item
 	return es
 }
+
+// Edit member struct.
+// Please see https://developers.revolt.chat/api/#tag/Server-Members/paths/~1servers~1:server~1members~1:member/patch for more information.
+type EditMember struct {
+	Nickname string   `json:"nickname,omitempty"`
+	Avatar   string   `json:"avatar,omitempty"`
+	Roles    []string `json:"roles,omitempty"`
+	Remove   string   `json:"remove,omitempty"`
+}
+
+// Set nickname for struct.
+func (em *EditMember) SetNickname(nick string) *EditMember {
+	if len(nick) < 1 || len(nick) > 32 {
+		return em
+	}
+
+	em.Nickname = nick
+	return em
+}
+
+// Set avatar for struct.
+func (em *EditMember) SetAvatar(autumn_id string) *EditMember {
+	if len(autumn_id) < 1 || len(autumn_id) > 128 {
+		return em
+	}
+
+	em.Avatar = autumn_id
+	return em
+}
+
+// Add role for struct.
+func (em *EditMember) AddRole(role_id string) *EditMember {
+	em.Roles = append(em.Roles, role_id)
+	return em
+}
+
+// Set remove item.
+func (em *EditMember) RemoveItem(item string) *EditMember {
+	if item != "Avatar" && item != "Nickname" {
+		return em
+	}
+
+	em.Remove = item
+	return em
+}

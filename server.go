@@ -153,6 +153,11 @@ func (s Server) FetchMember(id string) (*Member, error) {
 	return member, nil
 }
 
+// Edit a member.
+func (s Server) EditMember(id string) {
+
+}
+
 // // Fetch all server invites.
 // func (s Server) FetchInvites() {
 // 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
