@@ -170,6 +170,17 @@ func (s Server) EditMember(id string, em *EditMember) error {
 	return nil
 }
 
+// Kick a member from server.
+func (s Server) KickMember(id string) error {
+	_, err := s.Client.Request("DELETE", "/servers/"+s.Id+"/members/"+id, []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // // Fetch all server invites.
 // func (s Server) FetchInvites() {
 // 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
