@@ -74,6 +74,17 @@ func (p *Permissions) Add(perms ...string) *Permissions {
 	return p
 }
 
+// Remove permission(s).
+func (p *Permissions) Remove(perms ...string) *Permissions {
+	for _, perm := range perms {
+		if value, ok := p.Permissions[perm]; ok {
+			p.Bitvise = p.Bitvise - value
+		}
+	}
+
+	return p
+}
+
 // Calculate perms and return unsigned int.
 func (p Permissions) Calculate(perms ...string) uint {
 	var total uint
