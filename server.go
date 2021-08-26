@@ -277,7 +277,7 @@ func (s Server) SetPermissions(role_id string, channel_permissions, server_permi
 		role_id = "default"
 	}
 
-	_, err := c.Client.Request("PUT", "/servers/"+s.Id+"/permissions/"+role_id, []byte(fmt.Sprintf("{\"permissions\":{\"server\":%d,\"channel\":%d}}", channel_permissions, server_permissions)))
+	_, err := s.Client.Request("PUT", "/servers/"+s.Id+"/permissions/"+role_id, []byte(fmt.Sprintf("{\"permissions\":{\"server\":%d,\"channel\":%d}}", channel_permissions, server_permissions)))
 
 	if err != nil {
 		return err

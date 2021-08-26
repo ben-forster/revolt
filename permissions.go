@@ -8,7 +8,7 @@ type Permissions struct {
 }
 
 // Init all of the perms for channel.
-func (p *Permissions) InitChannel() {
+func (p *Permissions) InitChannel() *Permissions {
 	p.Permissions = map[string]uint{
 		"VIEW":            1 << 0,
 		"SEND_MESSAGE":    1 << 1,
@@ -20,10 +20,11 @@ func (p *Permissions) InitChannel() {
 		"UPLOAD_FILES":    1 << 7,
 	}
 	p.Mode = "CHANNEL"
+	return p
 }
 
 // Init all of the perms for user.
-func (p *Permissions) InitUser() {
+func (p *Permissions) InitUser() *Permissions {
 	p.Permissions = map[string]uint{
 		"ACCESS":       1 << 0,
 		"VIEW_PROFILE": 1 << 1,
@@ -31,10 +32,11 @@ func (p *Permissions) InitUser() {
 		"INVITE":       1 << 3,
 	}
 	p.Mode = "USER"
+	return p
 }
 
 // Init all of the perms for server.
-func (p *Permissions) InitServer() {
+func (p *Permissions) InitServer() *Permissions {
 	p.Permissions = map[string]uint{
 		"VIEW":            1 << 0,
 		"MANAGE_ROLES":    1 << 1,
@@ -49,6 +51,7 @@ func (p *Permissions) InitServer() {
 		"REMOVE_AVATARS":   1 << 15,
 	}
 	p.Mode = "SERVER"
+	return p
 }
 
 // Calculate if bitvise has permission
@@ -58,6 +61,17 @@ func (p Permissions) Has(perm string) bool {
 	}
 
 	return false
+}
+
+// Add new permission(s).
+func (p *Permissions) Add(perms ...string) *Permissions {
+	for _, perm := range perms {
+		if value, ok := p.Permissions[perm]; ok {
+			p.Bitvise = p.Bitvise | value
+		}
+	}
+
+	return p
 }
 
 // Calculate perms and return unsigned int.
