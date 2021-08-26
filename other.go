@@ -224,3 +224,50 @@ func (em *EditMember) RemoveItem(item string) *EditMember {
 	em.Remove = item
 	return em
 }
+
+// Edit role struct.
+type EditRole struct {
+	Name   string `json:"name"`
+	Colour string `json:"colour"`
+	Hoist  bool   `json:"hoist"`
+	Rank   int    `json:"rank"`
+	Remove string `json:"remove"`
+}
+
+// Set name for struct.
+func (er *EditRole) SetName(name string) *EditRole {
+	if len(name) < 1 || len(name) > 32 {
+		return er
+	}
+
+	er.Name = name
+	return er
+}
+
+// Set valid HTML color for struct.
+func (er *EditRole) SetColour(color string) *EditRole {
+	if len(color) < 1 || len(color) > 32 {
+		return er
+	}
+
+	er.Name = color
+	return er
+}
+
+// Set hoist boolean value for struct.
+func (er *EditRole) IsHoist(hoist bool) *EditRole {
+	er.Hoist = hoist
+	return er
+}
+
+// Set role ranking for struct.
+func (er *EditRole) SetRank(rank int) *EditRole {
+	er.Rank = rank
+	return er
+}
+
+// Set role ranking for struct.
+func (er *EditRole) RemoveColour() *EditRole {
+	er.Remove = "Colour"
+	return er
+}
