@@ -286,6 +286,29 @@ func (s Server) SetPermissions(role_id string, channel_permissions, server_permi
 	return nil
 }
 
+// Create a new role for server.
+// Returns string (role id), uint (server perms), uint (channel perms) and error.
+func (s Server) CreateRole(name string) (string, uint, uint, error) {
+	role := &struct {
+		Id          string `json:"id"`
+		Permissions []uint `json:"permissions"`
+	}{}
+
+	data, err := s.Client.Request("POST", "/servers/"+s.Id+"/roles", []byte("{\"name\":\""+name+"\"}"))
+
+	if err != nil {
+		return role.Id, 0, 0, err
+	}
+
+	err = json.Unmarshal(data, role)
+
+	if err != nil {
+		return role.Id, 0, 0, err
+	}
+
+	return role.Id, role.Permissions[0], role.Permissions[1], nil
+}
+
 // // Fetch all server invites.
 // func (s Server) FetchInvites() {
 // 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
