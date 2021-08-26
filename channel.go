@@ -203,7 +203,7 @@ func (c Channel) CreateInvite() (string, error) {
 
 // Set channel permissions for a role.
 // Leave role field empty if you want to edit default permissions
-func (c Channel) SetChannelPermissions(role_id string, permissions uint) error {
+func (c Channel) SetPermissions(role_id string, permissions uint) error {
 	if role_id == "" {
 		role_id = "default"
 	}

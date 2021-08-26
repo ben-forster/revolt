@@ -2,6 +2,7 @@ package revoltgo
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/oklog/ulid/v2"
@@ -267,6 +268,22 @@ func (s Server) FetchBans() (*FetchedBans, error) {
 	}
 
 	return bans, nil
+}
+
+// Set server permissions for a role.
+// Leave role field empty if you want to edit default permissions
+func (s Server) SetPermissions(role_id string, channel_permissions, server_permissions uint) error {
+	if role_id == "" {
+		role_id = "default"
+	}
+
+	_, err := c.Client.Request("PUT", "/servers/"+s.Id+"/permissions/"+role_id, []byte(fmt.Sprintf("{\"permissions\":{\"server\":%d,\"channel\":%d}}", channel_permissions, server_permissions)))
+
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
 // // Fetch all server invites.
