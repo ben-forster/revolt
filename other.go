@@ -227,11 +227,11 @@ func (em *EditMember) RemoveItem(item string) *EditMember {
 
 // Edit role struct.
 type EditRole struct {
-	Name   string `json:"name"`
-	Colour string `json:"colour"`
-	Hoist  bool   `json:"hoist"`
-	Rank   int    `json:"rank"`
-	Remove string `json:"remove"`
+	Name   string `json:"name,omitempty"`
+	Colour string `json:"colour,omitempty"`
+	Hoist  bool   `json:"hoist,omitempty"`
+	Rank   int    `json:"rank,omitempty"`
+	Remove string `json:"remove,omitempty"`
 }
 
 // Set name for struct.
@@ -250,7 +250,7 @@ func (er *EditRole) SetColour(color string) *EditRole {
 		return er
 	}
 
-	er.Name = color
+	er.Colour = color
 	return er
 }
 

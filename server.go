@@ -309,6 +309,34 @@ func (s Server) CreateRole(name string) (string, uint, uint, error) {
 	return role.Id, role.Permissions[0], role.Permissions[1], nil
 }
 
+// Edit a server role.
+func (s Server) EditRole(id string, er *EditRole) error {
+	data, err := json.Marshal(er)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = s.Client.Request("PATCH", "/servers/"+s.Id+"/roles/"+id, data)
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
+// Delete a server role.
+func (s Server) DeleteRole(id string) error {
+	_, err := s.Client.Request("DELETE", "/servers/"+s.Id+"/roles/"+id, []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // // Fetch all server invites.
 // func (s Server) FetchInvites() {
 // 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
