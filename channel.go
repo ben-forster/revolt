@@ -200,3 +200,19 @@ func (c Channel) CreateInvite() (string, error) {
 
 	return dataStruct.InviteCode, nil
 }
+
+// Set channel permissions for a role.
+// Leave role field empty if you want to edit default permissions
+func (c Channel) SetChannelPermissions(role_id string, permissions uint) error {
+	if role_id == "" {
+		role_id = "default"
+	}
+
+	_, err := c.Client.Request("PUT", "/channels/"+c.Id+"/permissions/"+role_id, []byte(fmt.Sprintf("{\"permissions\":%d}", permissions)))
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
