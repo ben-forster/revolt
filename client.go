@@ -29,6 +29,7 @@ type Client struct {
 	OnChannelCreateFunctions []func(channel *Channel)
 	OnChannelUpdateFunctions []func(channel_id, clear string, payload map[string]interface{})
 	OnChannelDeleteFunctions []func(channel_id string)
+	OnUnknownEventFunctions  []func(message string)
 }
 
 // Client cache struct.
@@ -81,6 +82,11 @@ func (c *Client) OnChannelUpdate(fn func(channel_id, clear string, payload map[s
 // On channel delete event will run when someone deletes a channel.
 func (c *Client) OnChannelDelete(fn func(channel_id string)) {
 	c.OnChannelDeleteFunctions = append(c.OnChannelDeleteFunctions, fn)
+}
+
+// On unknown event will run when client gets a unknown event.
+func (c *Client) OnUnknownEvent(fn func(message string)) {
+	c.OnUnknownEventFunctions = append(c.OnUnknownEventFunctions, fn)
 }
 
 // Fetch a channel by Id.

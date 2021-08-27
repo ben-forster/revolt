@@ -179,6 +179,13 @@ func (c *Client) handleEvents(rawData *struct {
 		for _, i := range c.OnChannelDeleteFunctions {
 			i(data.ChannelId)
 		}
+	} else {
+		// Unknown Event
+		if c.OnUnknownEventFunctions != nil {
+			for _, i := range c.OnUnknownEventFunctions {
+				i(message)
+			}
+		}
 	}
 }
 
