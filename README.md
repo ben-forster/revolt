@@ -6,7 +6,7 @@ Revoltgo is a go package for writing bots / self-bots in revolt easily.
 
 ## Features
 
-- Can listen a event multiple times
+- Can listen an event multiple times
 - Easy to use
 - Supports self-bots
 - Simple cache system
