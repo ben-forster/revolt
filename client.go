@@ -22,14 +22,16 @@ type Client struct {
 	Cache   *Cache
 
 	// Event Functions
-	OnReadyFunctions         []func()
-	OnMessageFunctions       []func(message *Message)
-	OnMessageUpdateFunctions []func(channel_id, message_id string, payload map[string]interface{})
-	OnMessageDeleteFunctions []func(channel_id, message_id string)
-	OnChannelCreateFunctions []func(channel *Channel)
-	OnChannelUpdateFunctions []func(channel_id, clear string, payload map[string]interface{})
-	OnChannelDeleteFunctions []func(channel_id string)
-	OnUnknownEventFunctions  []func(message string)
+	OnReadyFunctions              []func()
+	OnMessageFunctions            []func(message *Message)
+	OnMessageUpdateFunctions      []func(channel_id, message_id string, payload map[string]interface{})
+	OnMessageDeleteFunctions      []func(channel_id, message_id string)
+	OnChannelCreateFunctions      []func(channel *Channel)
+	OnChannelUpdateFunctions      []func(channel_id, clear string, payload map[string]interface{})
+	OnChannelDeleteFunctions      []func(channel_id string)
+	OnUnknownEventFunctions       []func(message string)
+	OnChannelStartTypingFunctions []func(channel_id, user_id string)
+	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
 }
 
 // Client cache struct.
@@ -87,6 +89,16 @@ func (c *Client) OnChannelDelete(fn func(channel_id string)) {
 // On unknown event will run when client gets a unknown event.
 func (c *Client) OnUnknownEvent(fn func(message string)) {
 	c.OnUnknownEventFunctions = append(c.OnUnknownEventFunctions, fn)
+}
+
+// On channel start typing will run when someone starts to type a message.
+func (c *Client) OnChannelStartTyping(fn func(channel_id, user_id string)) {
+	c.OnChannelStartTypingFunctions = append(c.OnChannelStartTypingFunctions, fn)
+}
+
+// On channel stıp typing will run when someone stops the typing status.
+func (c *Client) OnChannelStopTyping(fn func(channel_id, user_id string)) {
+	c.OnChannelStopTypingFunctions = append(c.OnChannelStopTypingFunctions, fn)
 }
 
 // Fetch a channel by Id.

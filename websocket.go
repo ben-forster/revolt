@@ -179,8 +179,40 @@ func (c *Client) handleEvents(rawData *struct {
 		for _, i := range c.OnChannelDeleteFunctions {
 			i(data.ChannelId)
 		}
+	} else if rawData.Type == "ChannelStartTyping" && c.OnChannelStartTypingFunctions != nil {
+		// Channel start typing event.
+		data := &struct {
+			ChannelId string `json:"id"`
+			UserId    string `json:"user"`
+		}{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnChannelStartTypingFunctions {
+			i(data.ChannelId, data.UserId)
+		}
+	} else if rawData.Type == "ChannelStopTyping" && c.OnChannelStopTypingFunctions != nil {
+		// Channel stop typing event.
+		data := &struct {
+			ChannelId string `json:"id"`
+			UserId    string `json:"user"`
+		}{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnChannelStopTypingFunctions {
+			i(data.ChannelId, data.UserId)
+		}
 	} else {
-		// Unknown Event
+		// Unknown event.
 		if c.OnUnknownEventFunctions != nil {
 			for _, i := range c.OnUnknownEventFunctions {
 				i(message)
