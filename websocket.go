@@ -211,6 +211,38 @@ func (c *Client) handleEvents(rawData *struct {
 		for _, i := range c.OnChannelStopTypingFunctions {
 			i(data.ChannelId, data.UserId)
 		}
+	} else if rawData.Type == "ServerUpdate" && c.OnServerUpdateFunctions != nil {
+		// Server update event.
+		data := &struct {
+			ServerId string                 `json:"id"`
+			Clear    string                 `json:"clear"`
+			Payload  map[string]interface{} `json:"data"`
+		}{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnServerUpdateFunctions {
+			i(data.ServerId, data.Clear, data.Payload)
+		}
+	} else if rawData.Type == "ServerDelete" && c.OnServerDeleteFunctions != nil {
+		// Server delete event.
+		data := &struct {
+			ServerId string `json:"id"`
+		}{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnServerDeleteFunctions {
+			i(data.ServerId)
+		}
 	} else {
 		// Unknown event.
 		if c.OnUnknownEventFunctions != nil {

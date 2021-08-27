@@ -32,6 +32,8 @@ type Client struct {
 	OnUnknownEventFunctions       []func(message string)
 	OnChannelStartTypingFunctions []func(channel_id, user_id string)
 	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
+	OnServerUpdateFunctions       []func(server_id, clear string, payload map[string]interface{})
+	OnServerDeleteFunctions       []func(server_id string)
 }
 
 // Client cache struct.
@@ -96,9 +98,19 @@ func (c *Client) OnChannelStartTyping(fn func(channel_id, user_id string)) {
 	c.OnChannelStartTypingFunctions = append(c.OnChannelStartTypingFunctions, fn)
 }
 
-// On channel stıp typing will run when someone stops the typing status.
+// On channel stop typing will run when someone stops the typing status.
 func (c *Client) OnChannelStopTyping(fn func(channel_id, user_id string)) {
 	c.OnChannelStopTypingFunctions = append(c.OnChannelStopTypingFunctions, fn)
+}
+
+// On server update will run when someone updates a server.
+func (c *Client) OnServerUpdate(fn func(server_id, clear string, payload map[string]interface{})) {
+	c.OnServerUpdateFunctions = append(c.OnServerUpdateFunctions, fn)
+}
+
+// On server delete will run when someone deletes a server.
+func (c *Client) OnServerDelete(fn func(server_id string)) {
+	c.OnServerDeleteFunctions = append(c.OnServerDeleteFunctions, fn)
 }
 
 // Fetch a channel by Id.
