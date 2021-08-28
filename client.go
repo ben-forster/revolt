@@ -204,3 +204,6 @@ func (c *Client) FetchDirectMessages() ([]*Channel, error) {
 
 	return dmChannels, nil
 }
+
+// Edit client user.
+func (c Client) Edit() {}

@@ -68,40 +68,24 @@ type EditChannel struct {
 
 // Set name for struct.
 func (ec *EditChannel) SetName(name string) *EditChannel {
-	if len(name) < 1 || len(name) > 32 {
-		return ec
-	}
-
 	ec.Name = name
 	return ec
 }
 
 // Set description for struct.
 func (ec *EditChannel) SetDescription(desc string) *EditChannel {
-	if len(desc) > 1024 {
-		return ec
-	}
-
 	ec.Description = desc
 	return ec
 }
 
 // Set icon for struct.
 func (ec *EditChannel) SetIcon(autumn_id string) *EditChannel {
-	if len(autumn_id) < 1 || len(autumn_id) > 128 {
-		return ec
-	}
-
 	ec.Icon = autumn_id
 	return ec
 }
 
 // Set remove item.
 func (ec *EditChannel) RemoveItem(item string) *EditChannel {
-	if item != "Description" && item != "Icon" {
-		return ec
-	}
-
 	ec.Remove = item
 	return ec
 }
@@ -120,40 +104,24 @@ type EditServer struct {
 
 // Set name for struct
 func (es *EditServer) SetName(name string) *EditServer {
-	if len(name) < 1 || len(name) > 32 {
-		return es
-	}
-
 	es.Name = name
 	return es
 }
 
 // Set description for struct.
 func (es *EditServer) SetDescription(desc string) *EditServer {
-	if len(desc) > 1024 {
-		return es
-	}
-
 	es.Description = desc
 	return es
 }
 
 // Set icon for struct.
 func (es *EditServer) SetIcon(autumn_id string) *EditServer {
-	if len(autumn_id) < 1 || len(autumn_id) > 128 {
-		return es
-	}
-
 	es.Icon = autumn_id
 	return es
 }
 
 // Set banner for struct.
 func (es *EditServer) SetBanner(autumn_id string) *EditServer {
-	if len(autumn_id) < 1 || len(autumn_id) > 128 {
-		return es
-	}
-
 	es.Banner = autumn_id
 	return es
 }
@@ -172,10 +140,6 @@ func (es *EditServer) SetSystemMessages(sm *SystemMessages) *EditServer {
 
 // Set remove item.
 func (es *EditServer) RemoveItem(item string) *EditServer {
-	if item != "Description" && item != "Banner" && item != "Icon" {
-		return es
-	}
-
 	es.Remove = item
 	return es
 }
@@ -191,20 +155,12 @@ type EditMember struct {
 
 // Set nickname for struct.
 func (em *EditMember) SetNickname(nick string) *EditMember {
-	if len(nick) < 1 || len(nick) > 32 {
-		return em
-	}
-
 	em.Nickname = nick
 	return em
 }
 
 // Set avatar for struct.
 func (em *EditMember) SetAvatar(autumn_id string) *EditMember {
-	if len(autumn_id) < 1 || len(autumn_id) > 128 {
-		return em
-	}
-
 	em.Avatar = autumn_id
 	return em
 }
@@ -217,10 +173,6 @@ func (em *EditMember) AddRole(role_id string) *EditMember {
 
 // Set remove item.
 func (em *EditMember) RemoveItem(item string) *EditMember {
-	if item != "Avatar" && item != "Nickname" {
-		return em
-	}
-
 	em.Remove = item
 	return em
 }
@@ -236,20 +188,12 @@ type EditRole struct {
 
 // Set name for struct.
 func (er *EditRole) SetName(name string) *EditRole {
-	if len(name) < 1 || len(name) > 32 {
-		return er
-	}
-
 	er.Name = name
 	return er
 }
 
 // Set valid HTML color for struct.
 func (er *EditRole) SetColour(color string) *EditRole {
-	if len(color) < 1 || len(color) > 32 {
-		return er
-	}
-
 	er.Colour = color
 	return er
 }
@@ -270,4 +214,55 @@ func (er *EditRole) SetRank(rank int) *EditRole {
 func (er *EditRole) RemoveColour() *EditRole {
 	er.Remove = "Colour"
 	return er
+}
+
+// Edit client user struct.
+// See https://developers.revolt.chat/api/#tag/User-Information/paths/~1users~1@me/patch for more information.
+type EditUser struct {
+	Status struct {
+		Text     string `json:"text,omitempty"`
+		Presence string `json:"presence,omitempty"`
+	} `json:"status,omitempty"`
+	Profile struct {
+		Content    string `json:"content,omitempty"`
+		Background string `json:"background,omitempty"`
+	} `json:"profile,omitempty"`
+	Avatar string `json:"avatar,omitempty"`
+	Remove string `json:"remove,omitempty"`
+}
+
+// Set status for struct.
+func (eu *EditUser) SetStatus(text, presence string) *EditUser {
+	eu.Status = struct {
+		Text     string "json:\"text,omitempty\""
+		Presence string "json:\"presence,omitempty\""
+	}{
+		Text:     text,
+		Presence: presence,
+	}
+	return eu
+}
+
+// Set profile informations for struct.
+func (eu *EditUser) SetProfile(content, background string) *EditUser {
+	eu.Profile = struct {
+		Content    string "json:\"content,omitempty\""
+		Background string "json:\"background,omitempty\""
+	}{
+		Content:    content,
+		Background: background,
+	}
+	return eu
+}
+
+// Set avatar for struct.
+func (eu *EditUser) SetAvatar(autumn_id string) *EditUser {
+	eu.Avatar = autumn_id
+	return eu
+}
+
+// Set remove item for struct.
+func (eu *EditUser) SetRemove(item string) *EditUser {
+	eu.Remove = item
+	return eu
 }
