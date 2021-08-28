@@ -191,3 +191,18 @@ func (c Channel) SetPermissions(role_id string, permissions uint) error {
 	_, err := c.Client.Request("PUT", "/channels/"+c.Id+"/permissions/"+role_id, []byte(fmt.Sprintf("{\"permissions\":%d}", permissions)))
 	return err
 }
+
+// Fetch all of the members from group.
+// This function is should only for GroupChannel.
+func (c Channel) FetchGroupMembers() ([]*User, error) {
+	var groupMembers []*User
+
+	resp, err := c.Client.Request("GET", "/channels/"+c.Id+"/members", []byte{})
+
+	if err != nil {
+		return groupMembers, err
+	}
+
+	err = json.Unmarshal(resp, &groupMembers)
+	return groupMembers, err
+}
