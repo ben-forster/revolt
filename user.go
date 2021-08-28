@@ -1,6 +1,7 @@
 package revoltgo
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/oklog/ulid/v2"
@@ -55,4 +56,19 @@ func (u *User) CalculateCreationDate() error {
 // Create a mention format.
 func (u User) FormatMention() string {
 	return "<@" + u.Id + ">"
+}
+
+// Create a DM with the user.
+func (u User) CreateDirectMessage() (*Channel, error) {
+	dmChannel := &Channel{}
+	dmChannel.Client = u.Client
+
+	resp, err := u.Client.Request("GET", "/users/"+u.Id+"/dm", []byte{})
+
+	if err != nil {
+		return dmChannel, err
+	}
+
+	err = json.Unmarshal(resp, dmChannel)
+	return dmChannel, err
 }

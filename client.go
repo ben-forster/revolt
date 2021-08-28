@@ -125,11 +125,7 @@ func (c *Client) FetchChannel(id string) (*Channel, error) {
 	}
 
 	err = json.Unmarshal(data, channel)
-
-	if err != nil {
-		return channel, err
-	}
-	return channel, nil
+	return channel, err
 }
 
 // Fetch an user by Id.
@@ -144,12 +140,7 @@ func (c *Client) FetchUser(id string) (*User, error) {
 	}
 
 	err = json.Unmarshal(data, user)
-
-	if err != nil {
-		return user, err
-	}
-
-	return user, nil
+	return user, err
 }
 
 // Fetch a server by Id.
@@ -164,12 +155,7 @@ func (c *Client) FetchServer(id string) (*Server, error) {
 	}
 
 	err = json.Unmarshal(data, server)
-
-	if err != nil {
-		return server, err
-	}
-
-	return server, nil
+	return server, err
 }
 
 // Create a server.
@@ -184,12 +170,7 @@ func (c *Client) CreateServer(name, description string) (*Server, error) {
 	}
 
 	err = json.Unmarshal(data, server)
-
-	if err != nil {
-		return server, err
-	}
-
-	return server, nil
+	return server, err
 }
 
 // Auth client user.
@@ -205,12 +186,31 @@ func (c *Client) Auth() error {
 	}
 
 	err = json.Unmarshal(resp, c.SelfBot)
+	return err
+}
+
+// Fetch all of the DMs.
+func (c *Client) FetchDirectMessages() ([]*Channel, error) {
+	var dmChannels []*Channel
+
+	resp, err := c.Request("GET", "/users/dms", []byte{})
 
 	if err != nil {
-		return err
+		return dmChannels, err
 	}
 
-	return nil
+	err = json.Unmarshal(resp, &dmChannels)
+
+	if err != nil {
+		return dmChannels, err
+	}
+
+	// Prepare channels.
+	for _, i := range dmChannels {
+		i.Client = c
+	}
+
+	return dmChannels, nil
 }
 
 // Get a channel from cache by Id.

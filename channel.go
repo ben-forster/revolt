@@ -143,12 +143,7 @@ func (c Channel) FetchMessage(id string) (*Message, error) {
 	}
 
 	err = json.Unmarshal(resp, msg)
-
-	if err != nil {
-		return msg, err
-	}
-
-	return msg, nil
+	return msg, err
 }
 
 // Edit channel.
@@ -160,23 +155,13 @@ func (c Channel) Edit(ec *EditChannel) error {
 	}
 
 	_, err = c.Client.Request("PATCH", "/channels/"+c.Id, data)
-
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // Delete channel.
 func (c Channel) Delete() error {
 	_, err := c.Client.Request("DELETE", "/channels/"+c.Id, []byte{})
-
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
 
 // Create a new invite.
@@ -193,12 +178,7 @@ func (c Channel) CreateInvite() (string, error) {
 	}{}
 
 	err = json.Unmarshal(data, dataStruct)
-
-	if err != nil {
-		return dataStruct.InviteCode, err
-	}
-
-	return dataStruct.InviteCode, nil
+	return dataStruct.InviteCode, err
 }
 
 // Set channel permissions for a role.
@@ -209,10 +189,5 @@ func (c Channel) SetPermissions(role_id string, permissions uint) error {
 	}
 
 	_, err := c.Client.Request("PUT", "/channels/"+c.Id+"/permissions/"+role_id, []byte(fmt.Sprintf("{\"permissions\":%d}", permissions)))
-
-	if err != nil {
-		return err
-	}
-
-	return nil
+	return err
 }
