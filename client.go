@@ -206,4 +206,13 @@ func (c *Client) FetchDirectMessages() ([]*Channel, error) {
 }
 
 // Edit client user.
-func (c Client) Edit() {}
+func (c Client) Edit(eu *EditUser) error {
+	data, err := json.Marshal(eu)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = c.Request("PATCH", "/users/@me", data)
+	return err
+}
