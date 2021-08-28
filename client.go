@@ -236,7 +236,6 @@ func (c *Client) CreateGroup(name, description string, users []string) (*Channel
 	}
 
 	data, err := json.Marshal(dataStruct)
-	fmt.Println(string(data))
 
 	if err != nil {
 		return groupChannel, err

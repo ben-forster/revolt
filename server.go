@@ -336,10 +336,3 @@ func (s Server) DeleteRole(id string) error {
 
 	return nil
 }
-
-// // Fetch all server invites.
-// func (s Server) FetchInvites() {
-// 	data, _ := s.Client.Request("GET", "/servers/"+s.Id+"/invites", []byte{})
-
-// 	fmt.Println("\n\n" + string(data) + "\n\n")
-// }
