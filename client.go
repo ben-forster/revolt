@@ -216,3 +216,38 @@ func (c Client) Edit(eu *EditUser) error {
 	_, err = c.Request("PATCH", "/users/@me", data)
 	return err
 }
+
+// Create a new group.
+// Users parameter is a list of users will be added.
+func (c *Client) CreateGroup(name, description string, users []string) (*Channel, error) {
+	groupChannel := &Channel{}
+	groupChannel.Client = c
+
+	dataStruct := &struct {
+		Name        string   `json:"name"`
+		Description string   `json:"description,omitempty"`
+		Users       []string `json:"users"`
+		Nonce       string   `json:"nonce"`
+	}{
+		Nonce:       genULID(),
+		Name:        name,
+		Description: description,
+		Users:       users,
+	}
+
+	data, err := json.Marshal(dataStruct)
+	fmt.Println(string(data))
+
+	if err != nil {
+		return groupChannel, err
+	}
+
+	resp, err := c.Request("POST", "/channels/create", data)
+
+	if err != nil {
+		return groupChannel, err
+	}
+
+	err = json.Unmarshal(resp, groupChannel)
+	return groupChannel, err
+}
