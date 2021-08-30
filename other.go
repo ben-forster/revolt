@@ -1,6 +1,9 @@
 package revoltgo
 
-import "fmt"
+import (
+	"fmt"
+	"os"
+)
 
 // Similar to message, but created for send message function.
 type SendMessage struct {
@@ -265,4 +268,14 @@ func (eu *EditUser) SetAvatar(autumn_id string) *EditUser {
 func (eu *EditUser) SetRemove(item string) *EditUser {
 	eu.Remove = item
 	return eu
+}
+
+// Revoltgo binary struct.
+type Binary struct {
+	Data []byte
+}
+
+// Save data to the given path.
+func (b Binary) Save(path string) error {
+	return os.WriteFile(path, b.Data, 0666)
 }
