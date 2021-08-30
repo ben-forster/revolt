@@ -13,7 +13,7 @@ type SendMessage struct {
 	DeleteAfter uint     `json:"-"`
 	Replies     []struct {
 		Id      string `json:"id,omitempty"`
-		Mention bool   `json:"mention,omitempty"`
+		Mention bool   `json:"mention"`
 	} `json:"replies,omitempty"`
 }
 
@@ -45,7 +45,7 @@ func (sms *SendMessage) AddAttachment(attachment string) *SendMessage {
 func (sms *SendMessage) AddReply(id string, mention bool) *SendMessage {
 	sms.Replies = append(sms.Replies, struct {
 		Id      string "json:\"id,omitempty\""
-		Mention bool   "json:\"mention,omitempty\""
+		Mention bool   "json:\"mention\""
 	}{
 		Id:      id,
 		Mention: mention,
