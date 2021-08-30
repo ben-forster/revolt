@@ -34,6 +34,9 @@ type Client struct {
 	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
 	OnServerUpdateFunctions       []func(server_id, clear string, payload map[string]interface{})
 	OnServerDeleteFunctions       []func(server_id string)
+	OnServerMemberUpdateFunctions []func(server_id, clear string, payload map[string]interface{})
+	OnServerMemberJoinFunctions   []func(server_id, user_id string)
+	OnServerMemberLeaveFunctions  []func(server_id, user_id string)
 }
 
 // Self bot struct.
@@ -103,6 +106,21 @@ func (c *Client) OnServerUpdate(fn func(server_id, clear string, payload map[str
 // On server delete will run when someone deletes a server.
 func (c *Client) OnServerDelete(fn func(server_id string)) {
 	c.OnServerDeleteFunctions = append(c.OnServerDeleteFunctions, fn)
+}
+
+// On server member update will run when a server member updates.
+func (c *Client) OnServerMemberUpdate(fn func(server_id, clear string, payload map[string]interface{})) {
+	c.OnServerMemberUpdateFunctions = append(c.OnServerMemberUpdateFunctions, fn)
+}
+
+// On server member join will run when someone joins to the server.
+func (c *Client) OnServerMemberJoin(fn func(server_id string, user_id string)) {
+	c.OnServerMemberJoinFunctions = append(c.OnServerMemberJoinFunctions, fn)
+}
+
+// On server member leave will run when someone left from server.
+func (c *Client) OnServerMemberLeave(fn func(server_id string, user_id string)) {
+	c.OnServerMemberLeaveFunctions = append(c.OnServerMemberLeaveFunctions, fn)
 }
 
 // Fetch a channel by Id.

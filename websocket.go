@@ -88,13 +88,13 @@ func (c *Client) handleEvents(rawData *struct {
 	} else if rawData.Type == "Message" && c.OnMessageFunctions != nil {
 		// Message Event
 		msgData := &Message{}
+		msgData.Client = c
+
 		err := json.Unmarshal([]byte(message), msgData)
 
 		if err != nil {
 			fmt.Printf("Unexcepted Error: %s", err)
 		}
-
-		msgData.Client = c
 
 		for _, i := range c.OnMessageFunctions {
 			i(msgData)
@@ -118,10 +118,7 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 	} else if rawData.Type == "MessageDelete" && c.OnMessageDeleteFunctions != nil {
 		// Message Delete Event
-		data := &struct {
-			ChannelId string `json:"channel"`
-			MessageId string `json:"id"`
-		}{}
+		data := &map[string]string{}
 
 		err := json.Unmarshal([]byte(message), data)
 
@@ -130,19 +127,18 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 
 		for _, i := range c.OnMessageDeleteFunctions {
-			i(data.ChannelId, data.MessageId)
+			i((*data)["channel"], (*data)["id"])
 		}
 	} else if rawData.Type == "ChannelCreate" && c.OnChannelCreateFunctions != nil {
 		// Channel create event.
 		channelData := &Channel{}
+		channelData.Client = c
 
 		err := json.Unmarshal([]byte(message), channelData)
 
 		if err != nil {
 			fmt.Printf("Unexcepted Error: %s", err)
 		}
-
-		channelData.Client = c
 
 		for _, i := range c.OnChannelCreateFunctions {
 			i(channelData)
@@ -166,9 +162,7 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 	} else if rawData.Type == "ChannelDelete" && c.OnChannelDeleteFunctions != nil {
 		// Channel delete event.
-		data := &struct {
-			ChannelId string `json:"id"`
-		}{}
+		data := &map[string]string{}
 
 		err := json.Unmarshal([]byte(message), data)
 
@@ -177,14 +171,11 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 
 		for _, i := range c.OnChannelDeleteFunctions {
-			i(data.ChannelId)
+			i((*data)["id"])
 		}
 	} else if rawData.Type == "ChannelStartTyping" && c.OnChannelStartTypingFunctions != nil {
 		// Channel start typing event.
-		data := &struct {
-			ChannelId string `json:"id"`
-			UserId    string `json:"user"`
-		}{}
+		data := &map[string]string{}
 
 		err := json.Unmarshal([]byte(message), data)
 
@@ -193,14 +184,11 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 
 		for _, i := range c.OnChannelStartTypingFunctions {
-			i(data.ChannelId, data.UserId)
+			i((*data)["id"], (*data)["user"])
 		}
 	} else if rawData.Type == "ChannelStopTyping" && c.OnChannelStopTypingFunctions != nil {
 		// Channel stop typing event.
-		data := &struct {
-			ChannelId string `json:"id"`
-			UserId    string `json:"user"`
-		}{}
+		data := &map[string]string{}
 
 		err := json.Unmarshal([]byte(message), data)
 
@@ -209,7 +197,7 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 
 		for _, i := range c.OnChannelStopTypingFunctions {
-			i(data.ChannelId, data.UserId)
+			i((*data)["id"], (*data)["user"])
 		}
 	} else if rawData.Type == "ServerUpdate" && c.OnServerUpdateFunctions != nil {
 		// Server update event.
@@ -230,9 +218,7 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 	} else if rawData.Type == "ServerDelete" && c.OnServerDeleteFunctions != nil {
 		// Server delete event.
-		data := &struct {
-			ServerId string `json:"id"`
-		}{}
+		data := &map[string]string{}
 
 		err := json.Unmarshal([]byte(message), data)
 
@@ -241,7 +227,50 @@ func (c *Client) handleEvents(rawData *struct {
 		}
 
 		for _, i := range c.OnServerDeleteFunctions {
-			i(data.ServerId)
+			i((*data)["id"])
+		}
+	} else if rawData.Type == "ServerMemberUpdate" && c.OnServerMemberUpdateFunctions != nil {
+		// Member update event.
+		data := &struct {
+			ServerId string                 `json:"id"`
+			Clear    string                 `json:"clear"`
+			Payload  map[string]interface{} `json:"data"`
+		}{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnServerMemberUpdateFunctions {
+			i(data.ServerId, data.Clear, data.Payload)
+		}
+	} else if rawData.Type == "ServerMemberJoin" && c.OnServerMemberJoinFunctions != nil {
+		// Member join event.
+		data := &map[string]string{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnServerMemberJoinFunctions {
+			i((*data)["id"], (*data)["user"])
+		}
+	} else if rawData.Type == "ServerMemberLeave" && c.OnServerMemberLeaveFunctions != nil {
+		// Member left event.
+		data := &map[string]string{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnServerMemberLeaveFunctions {
+			i((*data)["id"], (*data)["user"])
 		}
 	} else {
 		// Unknown event.
