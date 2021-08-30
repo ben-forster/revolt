@@ -3,6 +3,7 @@
 Revoltgo is a go package for writing bots / self-bots in revolt easily.
 
 **NOTE**: This package is still under development and not finished. Create an issue if you found a bug.
+**NOTE 2**: This package requires go 1.17.
 
 ## Features
 
@@ -18,7 +19,7 @@ Revoltgo is a go package for writing bots / self-bots in revolt easily.
 
 ## API Reference
 
-Click [here](https://pkg.go.dev/github.com/5elenay/revoltgo@v0.1.0) for api reference.
+Click [here](https://pkg.go.dev/github.com/5elenay/revoltgo@v0.1.1) for api reference.
 
 ## Ping Pong Example (Bot)
 
