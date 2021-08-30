@@ -72,3 +72,17 @@ func (u User) CreateDirectMessage() (*Channel, error) {
 	err = json.Unmarshal(resp, dmChannel)
 	return dmChannel, err
 }
+
+// Fetch default user avatar.
+func (u User) FetchDefaultAvatar() (*Binary, error) {
+	avatarData := &Binary{}
+
+	resp, err := u.Client.Request("GET", "/users/"+u.Id+"/default_avatar", []byte{})
+
+	if err != nil {
+		return avatarData, err
+	}
+
+	avatarData.Data = resp
+	return avatarData, nil
+}
