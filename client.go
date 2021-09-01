@@ -282,3 +282,33 @@ func (c Client) FetchRelationships() ([]*UserRelations, error) {
 	err = json.Unmarshal(resp, &relationshipDatas)
 	return relationshipDatas, err
 }
+
+// Send friend request. / Accept friend request.
+// User relations struct only will have status. id is not defined for this function.
+func (c Client) AddFriend(username string) (*UserRelations, error) {
+	relationshipData := &UserRelations{}
+
+	resp, err := c.Request("PUT", "/users/"+username+"/friend", []byte{})
+
+	if err != nil {
+		return relationshipData, err
+	}
+
+	err = json.Unmarshal(resp, relationshipData)
+	return relationshipData, err
+}
+
+// Deny friend request. / Remove friend.
+// User relations struct only will have status. id is not defined for this function.
+func (c Client) RemoveFriend(username string) (*UserRelations, error) {
+	relationshipData := &UserRelations{}
+
+	resp, err := c.Request("DELETE", "/users/"+username+"/friend", []byte{})
+
+	if err != nil {
+		return relationshipData, err
+	}
+
+	err = json.Unmarshal(resp, relationshipData)
+	return relationshipData, err
+}
