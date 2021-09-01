@@ -101,3 +101,33 @@ func (u User) FetchRelationship() (*UserRelations, error) {
 	err = json.Unmarshal(resp, relationshipData)
 	return relationshipData, err
 }
+
+// Block user.
+func (u User) Block() (*UserRelations, error) {
+	relationshipData := &UserRelations{}
+	relationshipData.Id = u.Id
+
+	resp, err := u.Client.Request("PUT", "/users/"+u.Id+"/block", []byte{})
+
+	if err != nil {
+		return relationshipData, err
+	}
+
+	err = json.Unmarshal(resp, relationshipData)
+	return relationshipData, err
+}
+
+// Un-block user.
+func (u User) Unblock() (*UserRelations, error) {
+	relationshipData := &UserRelations{}
+	relationshipData.Id = u.Id
+
+	resp, err := u.Client.Request("DELETE", "/users/"+u.Id+"/block", []byte{})
+
+	if err != nil {
+		return relationshipData, err
+	}
+
+	err = json.Unmarshal(resp, relationshipData)
+	return relationshipData, err
+}
