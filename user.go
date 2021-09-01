@@ -86,3 +86,18 @@ func (u User) FetchDefaultAvatar() (*Binary, error) {
 	avatarData.Data = resp
 	return avatarData, nil
 }
+
+// Fetch user relationship.
+func (u User) FetchRelationship() (*UserRelations, error) {
+	relationshipData := &UserRelations{}
+	relationshipData.Id = u.Id
+
+	resp, err := u.Client.Request("GET", "/users/"+u.Id+"/relationship", []byte{})
+
+	if err != nil {
+		return relationshipData, err
+	}
+
+	err = json.Unmarshal(resp, relationshipData)
+	return relationshipData, err
+}

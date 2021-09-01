@@ -268,3 +268,17 @@ func (c *Client) CreateGroup(name, description string, users []string) (*Channel
 	err = json.Unmarshal(resp, groupChannel)
 	return groupChannel, err
 }
+
+// Fetch relationships.
+func (c Client) FetchRelationships() ([]*UserRelations, error) {
+	relationshipDatas := []*UserRelations{}
+
+	resp, err := c.Request("GET", "/users/relationships", []byte{})
+
+	if err != nil {
+		return relationshipDatas, err
+	}
+
+	err = json.Unmarshal(resp, &relationshipDatas)
+	return relationshipDatas, err
+}
