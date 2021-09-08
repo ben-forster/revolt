@@ -1,6 +1,7 @@
 package revoltgo
 
 import (
+	"encoding/json"
 	"time"
 
 	"github.com/oklog/ulid/v2"
@@ -37,3 +38,19 @@ func (b *Bot) CalculateCreationDate() error {
 }
 
 // Edit the bot.
+func (b *Bot) Edit(eb *EditBot) error {
+	data, err := json.Marshal(eb)
+
+	if err != nil {
+		return err
+	}
+
+	_, err = b.Client.Request("PATCH", "/bots/"+b.Id, data)
+	return err
+}
+
+// Delete the bot.
+func (b *Bot) Delete() error {
+	_, err := b.Client.Request("DELETE", "/bots/"+b.Id, []byte{})
+	return err
+}
