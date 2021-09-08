@@ -279,3 +279,36 @@ type Binary struct {
 func (b Binary) Save(path string) error {
 	return os.WriteFile(path, b.Data, 0666)
 }
+
+// Edit bot struct
+// Please see https://developers.revolt.chat/api/#tag/Bots/paths/~1bots~1:bot/patch for more information.
+type EditBot struct {
+	Name            string `json:"name,omitempty"`
+	Public          bool   `json:"public,omitempty"`
+	InteractionsUrl string `json:"interactionsURL,omitempty"`
+	Remove          string `json:"remove,omitempty"`
+}
+
+// Set name for struct.
+func (eb *EditBot) SetName(name string) *EditBot {
+	eb.Name = name
+	return eb
+}
+
+// Set public value for struct.
+func (eb *EditBot) SetPublicValue(is_public bool) *EditBot {
+	eb.Public = is_public
+	return eb
+}
+
+// Set interaction url for struct.
+func (eb *EditBot) SetInteractionsUrl(url string) *EditBot {
+	eb.InteractionsUrl = url
+	return eb
+}
+
+// Remove interaction url for struct.
+func (eb *EditBot) RemoveInteractionsUrl() *EditBot {
+	eb.Remove = "InteractionsURL"
+	return eb
+}
