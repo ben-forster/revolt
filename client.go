@@ -312,3 +312,68 @@ func (c Client) RemoveFriend(username string) (*UserRelations, error) {
 	err = json.Unmarshal(resp, relationshipData)
 	return relationshipData, err
 }
+
+// Create a new bot.
+func (c *Client) CreateBot(name string) (*Bot, error) {
+	botData := &Bot{}
+	botData.Client = c
+
+	resp, err := c.Request("POST", "/bots/create", []byte("{\"name\":\""+name+"\"}"))
+
+	if err != nil {
+		return botData, err
+	}
+
+	err = json.Unmarshal(resp, botData)
+	return botData, err
+
+}
+
+// Fetch client bots.
+func (c *Client) FetchBots() (*FetchedBots, error) {
+	bots := &FetchedBots{}
+
+	resp, err := c.Request("GET", "/bots/@me", []byte{})
+
+	if err != nil {
+		return bots, err
+	}
+
+	err = json.Unmarshal(resp, bots)
+
+	if err != nil {
+		return bots, err
+	}
+
+	// Add client for bots.
+	for _, i := range bots.Bots {
+		i.Client = c
+	}
+
+	// Add client for users.
+	for _, i := range bots.Users {
+		i.Client = c
+	}
+
+	return bots, nil
+}
+
+// Fetch a bot.
+func (c *Client) FetchBot(id string) (*Bot, error) {
+	bot := &struct {
+		Bot *Bot `json:"bot"`
+	}{
+		Bot: &Bot{
+			Client: c,
+		},
+	}
+
+	resp, err := c.Request("GET", "/bots/"+id, []byte{})
+
+	if err != nil {
+		return bot.Bot, err
+	}
+
+	err = json.Unmarshal(resp, bot)
+	return bot.Bot, err
+}
