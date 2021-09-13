@@ -23,7 +23,6 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 	if c.SelfBot == nil {
 		req.Header.Set("x-bot-token", c.Token)
 	} else if c.SelfBot.SessionToken != "" && c.SelfBot.UserId != "" {
-		req.Header.Set("x-user-id", c.SelfBot.UserId)
 		req.Header.Set("x-session-token", c.SelfBot.SessionToken)
 	}
 

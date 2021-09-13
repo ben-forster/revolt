@@ -54,7 +54,7 @@ func (c *Client) handleWebsocketAuth() {
 	if c.SelfBot == nil {
 		c.Socket.SendText(fmt.Sprintf("{\"type\":\"Authenticate\",\"token\":\"%s\"}", c.Token))
 	} else {
-		c.Socket.SendText(fmt.Sprintf("{\"type\":\"Authenticate\",\"id\":\"%s\",\"session_token\":\"%s\",\"user_id\":\"%s\"}", c.SelfBot.Id, c.SelfBot.SessionToken, c.SelfBot.UserId))
+		c.Socket.SendText(fmt.Sprintf("{\"type\":\"Authenticate\",\"result\":\"Success\",\"_id\":\"%s\",\"token\":\"%s\",\"user_id\":\"%s\",\"name\":\"Revoltgo\"}", c.SelfBot.Id, c.SelfBot.SessionToken, c.SelfBot.UserId))
 	}
 }
 
