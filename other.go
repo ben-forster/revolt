@@ -7,14 +7,27 @@ import (
 
 // Similar to message, but created for send message function.
 type SendMessage struct {
-	Content     string   `json:"content,omitempty"`
-	Attachments []string `json:"attachments,omitempty"`
-	Nonce       string   `json:"nonce,omitempty"`
-	DeleteAfter uint     `json:"-"`
-	Replies     []struct {
-		Id      string `json:"id,omitempty"`
-		Mention bool   `json:"mention"`
-	} `json:"replies,omitempty"`
+	Content     string          `json:"content"`
+	Nonce       string          `json:"nonce,omitempty"`
+	Attachments []string        `json:"attachments,omitempty"`
+	Replies     []Replies       `json:"replies,omitempty"`
+	Embeds      []SendableEmbed `json:"embeds,omitempty"`
+	DeleteAfter uint            `json:"-"`
+}
+
+type SendableEmbed struct {
+	Type        string `json:"type"`
+	IconUrl     string `json:"icon_url,omitempty"`
+	Url         string `json:"url,omitempty"`
+	Title       string `json:"title,omitempty"`
+	Description string `json:"description,omitempty"`
+	Media       string `json:"media,omitempty"`
+	Colour      string `json:"colour,omitempty"`
+}
+
+type Replies struct {
+	Id      string `json:"id"`
+	Mention bool   `json:"mention"`
 }
 
 // Set content.
@@ -43,10 +56,7 @@ func (sms *SendMessage) AddAttachment(attachment string) *SendMessage {
 
 // Add a new reply.
 func (sms *SendMessage) AddReply(id string, mention bool) *SendMessage {
-	sms.Replies = append(sms.Replies, struct {
-		Id      string "json:\"id,omitempty\""
-		Mention bool   "json:\"mention\""
-	}{
+	sms.Replies = append(sms.Replies, Replies{
 		Id:      id,
 		Mention: mention,
 	})
