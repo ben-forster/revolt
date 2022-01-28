@@ -220,3 +220,13 @@ func (c Channel) DeleteGroupRecipient(user_id string) error {
 	_, err := c.Client.Request("DELETE", "/channels/"+c.Id+"/recipients/"+user_id, []byte{})
 	return err
 }
+
+// Send a typing start event to the channel.
+func (c *Channel) BeginTyping() {
+	c.Client.Socket.SendText(fmt.Sprintf("{\"type\":\"BeginTyping\",\"channel\":\"%s\"}", c.Id))
+}
+
+// End the typing event in the channel.
+func (c *Channel) EndTyping() {
+	c.Client.Socket.SendText(fmt.Sprintf("{\"type\":\"EndTyping\",\"channel\":\"%s\"}", c.Id))
+}
