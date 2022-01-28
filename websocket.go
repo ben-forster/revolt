@@ -25,6 +25,8 @@ func (c *Client) Start() {
 	}
 
 	c.Socket.OnTextMessage = func(message string, _ gowebsocket.Socket) {
+		fmt.Println(message)
+
 		// Parse data
 		rawData := &struct {
 			Type string `json:"type"`
@@ -67,7 +69,7 @@ func (c *Client) Destroy() {
 func (c *Client) ping() {
 	for {
 		time.Sleep(30 * time.Second)
-		c.Socket.SendText(fmt.Sprintf("{\"type\":\"Ping\",\"time\":%d}", time.Now().Unix()))
+		c.Socket.SendText("{\"type\":\"Ping\",\"data\":0}")
 	}
 }
 
