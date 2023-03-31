@@ -184,12 +184,12 @@ func (c *Client) CreateServer(name, description string) (*Server, error) {
 }
 
 // Auth client user.
-func (c *Client) Auth() error {
+func (c *Client) Auth(friendlyName string) error {
 	if c.SelfBot == nil {
 		return fmt.Errorf("can't auth user (not a self-bot.)")
 	}
 
-	resp, err := c.Request("POST", "/auth/session/login", []byte("{\"email\":\""+c.SelfBot.Email+"\",\"password\":\""+c.SelfBot.Password+"\",\"name\":\"Revoltgo\"}"))
+	resp, err := c.Request("POST", "/auth/session/login", []byte("{\"email\":\""+c.SelfBot.Email+"\",\"password\":\""+c.SelfBot.Password+"\",\"friendly_name\":\""+friendlyName+"\"}"))
 
 	if err != nil {
 		return err
