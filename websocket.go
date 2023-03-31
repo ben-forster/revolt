@@ -25,7 +25,7 @@ func (c *Client) Start() {
 	}
 
 	c.Socket.OnTextMessage = func(message string, _ gowebsocket.Socket) {
-		fmt.Println(message)
+		//fmt.Println(message)
 
 		// Parse data
 		rawData := &struct {
