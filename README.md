@@ -1,5 +1,7 @@
 # Revoltgo
 
+### This is a fork of the original to fix some bugs and add features.
+
 Revoltgo is a go package for writing bots / self-bots in revolt easily.
 
 **NOTE**: This package is still under development and not finished. Create an issue if you found a bug.
@@ -16,7 +18,7 @@ Revoltgo is a go package for writing bots / self-bots in revolt easily.
 ## Installation
 
 - Create a new project and init go.mod file. `go mod init example`
-- Install the package using `go get github.com/5elenay/revoltgo`
+- Install the package using `go get github.com/itzTheMeow/revolt-go`
 
 ## API Reference
 
