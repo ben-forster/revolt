@@ -22,7 +22,7 @@ func (c Client) Request(method, path string, data []byte) ([]byte, error) {
 	// Set auth headers
 	if c.SelfBot == nil {
 		req.Header.Set("x-bot-token", c.Token)
-	} else if c.SelfBot.SessionToken != "" && c.SelfBot.UserId != "" {
+	} else if c.SelfBot.SessionToken != "" {
 		req.Header.Set("x-session-token", c.SelfBot.SessionToken)
 	}
 
