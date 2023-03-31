@@ -45,7 +45,7 @@ type SelfBot struct {
 	Password     string `json:"-"`
 	Id           string `json:"id"`
 	UserId       string `json:"user_id"`
-	SessionToken string `json:"session_token"`
+	SessionToken string `json:"token"`
 }
 
 // On ready event will run when websocket connection is started and bot is ready to work.
