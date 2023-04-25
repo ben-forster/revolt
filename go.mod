@@ -1,6 +1,6 @@
 module github.com/ben-forster/revgo
 
-go 1.20.1
+go 1.20
 
 require (
 	github.com/oklog/ulid/v2 v2.0.2
