@@ -1,28 +1,28 @@
 # revgo
 
-### This is a fork of the original to fix some bugs and add features.
-
-revgo is a go package for writing bots / self-bots in revolt easily.
-
-**NOTE**: This package is still under development and not finished. Create an issue if you found a bug.
-
-**NOTE 2**: This package requires go 1.17.
+revgo is a Go package for writing bots and self-bots in Revolt easily.
 
 ## Features
 
 - Multiple event listen
 - Easy to use
-- Supports self-bots
+- Supports self bots
 - Simple cache system
 
 ## Installation
 
 - Create a new project and init go.mod file. `go mod init example`
-- Install the package using `go get github.com/itzTheMeow/revolt-go`
+- Install the package using `go get github.com/ben-forster/rev-go`
 
 ## API Reference
 
-Click [here](https://pkg.go.dev/github.com/5elenay/revgo@v0.3.1) for api reference.
+Click [here](https://pkg.go.dev/github.com/ben-forster/revgo@v0.0.1) for api reference.
+
+## Notice
+
+Please note that you will need the Go 1.17 to use revoltgo.
+
+This package is still under development and while you can create a working bot, the library is not finished. Create an issue if you would like to contribute.
 
 ## Ping Pong Example (Bot)
 
