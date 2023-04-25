@@ -12,7 +12,7 @@ revgo is a Go package for writing bots and self-bots in Revolt easily.
 ## Installation
 
 - Create a new project and init go.mod file. `go mod init example`
-- Install the package using `go get github.com/ben-forster/rev-go`
+- Install the package using `go get github.com/ben-forster/revgo`
 
 ## API Reference
 
