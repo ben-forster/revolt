@@ -34,7 +34,7 @@ import (
     "os/signal"
     "syscall"
 
-    "github.com/ben-forsterrevgo"
+    "github.com/ben-forster/revgo"
 )
 
 func main() {
