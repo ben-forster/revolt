@@ -131,7 +131,7 @@ func main() {
 - [x] OnMessage
 - [x] OnMessageUpdate
 - [ ] OnMessageAppend
-- [ ] OnMessageDelete
+- [x] OnMessageDelete
 - [x] OnChannelCreate
 - [x] OnChannelUpdate
 - [x] OnChannelDelete
@@ -140,12 +140,12 @@ func main() {
 - [ ] OnChannelStartTyping
 - [ ] OnChannelStopTyping
 - [ ] OnChannelAck
-- [x] OnServerCreate
-- [x] OnServerUpdate
+- [ ] OnServerCreate
+- [ ] OnServerUpdate
 - [ ] OnServerDelete
 - [ ] OnServerMemberUpdate
-- [ ] OnServerMemberJoin
-- [ ] OnServerMemberLeave
+- [x] OnServerMemberJoin
+- [x] OnServerMemberLeave
 - [ ] OnServerRoleUpdate
 - [ ] OnServerRoleDelete
 - [ ] OnUserUpdate
