@@ -1,4 +1,4 @@
-module github.com/itzTheMeow/revolt-go
+module github.com/ben-forster/revgo
 
 go 1.17
 
