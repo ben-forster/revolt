@@ -137,19 +137,18 @@ func main() {
 - [x] OnChannelDelete
 - [ ] OnChannelGroupJoin
 - [ ] OnChannelGroupLeave
-- [ ] OnChannelStartTyping
-- [ ] OnChannelStopTyping
+- [x] OnChannelStartTyping
+- [x] OnChannelStopTyping
 - [ ] OnChannelAck
 - [ ] OnServerCreate
-- [ ] OnServerUpdate
-- [ ] OnServerDelete
-- [ ] OnServerMemberUpdate
+- [x] OnServerUpdate
+- [x] OnServerDelete
+- [x] OnServerMemberUpdate
 - [x] OnServerMemberJoin
 - [x] OnServerMemberLeave
 - [ ] OnServerRoleUpdate
 - [ ] OnServerRoleDelete
 - [ ] OnUserUpdate
-- [ ] OnUserRelationship
 - [ ] OnUserRelationship
 - [ ] OnEmojiCreate
 - [ ] OnEmojiDelete
