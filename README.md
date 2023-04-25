@@ -125,3 +125,31 @@ func main() {
 }
 
 ```
+
+## To-Do
+- [x] OnReady
+- [x] OnMessage
+- [x] OnMessageUpdate
+- [ ] OnMessageAppend
+- [ ] OnMessageDelete
+- [x] OnChannelCreate
+- [x] OnChannelUpdate
+- [x] OnChannelDelete
+- [ ] OnChannelGroupJoin
+- [ ] OnChannelGroupLeave
+- [ ] OnChannelStartTyping
+- [ ] OnChannelStopTyping
+- [ ] OnChannelAck
+- [x] OnServerCreate
+- [x] OnServerUpdate
+- [ ] OnServerDelete
+- [ ] OnServerMemberUpdate
+- [ ] OnServerMemberJoin
+- [ ] OnServerMemberLeave
+- [ ] OnServerRoleUpdate
+- [ ] OnServerRoleDelete
+- [ ] OnUserUpdate
+- [ ] OnUserRelationship
+- [ ] OnUserRelationship
+- [ ] OnEmojiCreate
+- [ ] OnEmojiDelete
