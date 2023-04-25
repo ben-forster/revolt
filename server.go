@@ -12,37 +12,20 @@ import (
 type Server struct {
 	Client    *Client
 	CreatedAt time.Time
-  
-	Id string `json:"_id"`
-	Nonce string `json:"nonce"`
-	OwnerId string `json:"owner"`
-	Name string `json:"name"`
-  
-	// Description of the server.
-	Description string `json:"description"`
-  
-	// IDs of the channels in the server.
-	ChannelIds []string `json:"channels"`
-  
-	// Categories of the server.
-	Categories []*ServerCategory `json:"categories"`
-  
-	// System messages of the server.
-	SystemMessages *SystemMessages `json:"system_messages"`
-  
-	// Roles of the server.
-	Roles map[string]interface{} `json:"roles"`
-  
-	// Default permissions of the server.
-	DefaultPermissions []interface{} `json:"default_permissions"`
-  
-	// Icon of the server.
-	Icon *Attachment `json:"icon"`
-  
-	// Banner of the server.
-	Banner *Attachment `json:"banner"`
-  }
-  
+
+	Id                 string                 `json:"_id"`
+	Nonce              string                 `json:"nonce"`
+	OwnerId            string                 `json:"owner"`
+	Name               string                 `json:"name"`
+	Description        string                 `json:"description"`
+	ChannelIds         []string               `json:"channels"`
+	Categories         []*ServerCategory      `json:"categories"`
+	SystemMessages     *SystemMessages        `json:"system_messages"`
+	Roles              map[string]interface{} `json:"roles"`
+	DefaultPermissions []interface{}          `json:"default_permissions"`
+	Icon               *Attachment            `json:"icon"`
+	Banner             *Attachment            `json:"banner"`
+}
 
 // Server categories struct.
 type ServerCategory struct {
