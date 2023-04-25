@@ -1,4 +1,4 @@
-package revoltgo
+package revgo
 
 import (
 	"fmt"
@@ -280,7 +280,7 @@ func (eu *EditUser) SetRemove(item string) *EditUser {
 	return eu
 }
 
-// Revoltgo binary struct.
+// revgo binary struct.
 type Binary struct {
 	Data []byte
 }

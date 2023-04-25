@@ -1,4 +1,4 @@
-package revoltgo
+package revgo
 
 // Permissions struct
 type Permissions struct {

@@ -1,8 +1,8 @@
-# Revoltgo
+# revgo
 
 ### This is a fork of the original to fix some bugs and add features.
 
-Revoltgo is a go package for writing bots / self-bots in revolt easily.
+revgo is a go package for writing bots / self-bots in revolt easily.
 
 **NOTE**: This package is still under development and not finished. Create an issue if you found a bug.
 
@@ -22,7 +22,7 @@ Revoltgo is a go package for writing bots / self-bots in revolt easily.
 
 ## API Reference
 
-Click [here](https://pkg.go.dev/github.com/5elenay/revoltgo@v0.3.1) for api reference.
+Click [here](https://pkg.go.dev/github.com/5elenay/revgo@v0.3.1) for api reference.
 
 ## Ping Pong Example (Bot)
 
@@ -34,19 +34,19 @@ import (
     "os/signal"
     "syscall"
 
-    "github.com/5elenay/revoltgo"
+    "github.com/5elenay/revgo"
 )
 
 func main() {
     // Init a new client.
-    client := revoltgo.Client{
+    client := revgo.Client{
         Token: "bot token",
     }
 
     // Listen a on message event.
-    client.OnMessage(func(m *revoltgo.Message) {
+    client.OnMessage(func(m *revgo.Message) {
         if m.Content == "!ping" {
-            sendMsg := &revoltgo.SendMessage{}
+            sendMsg := &revgo.SendMessage{}
             sendMsg.SetContent("🏓 Pong!")
 
             m.Reply(true, sendMsg)
@@ -83,13 +83,13 @@ import (
     "os/signal"
     "syscall"
 
-    "github.com/5elenay/revoltgo"
+    "github.com/5elenay/revgo"
 )
 
 func main() {
     // Init a new client.
-    client := revoltgo.Client{
-        SelfBot: &revoltgo.SelfBot{
+    client := revgo.Client{
+        SelfBot: &revgo.SelfBot{
             Id:           "session id",
             SessionToken: "session token",
             UserId:       "user id",
@@ -97,9 +97,9 @@ func main() {
     }
 
     // Listen a on message event.
-    client.OnMessage(func(m *revoltgo.Message) {
+    client.OnMessage(func(m *revgo.Message) {
         if m.Content == "!ping" {
-            sendMsg := &revoltgo.SendMessage{}
+            sendMsg := &revgo.SendMessage{}
             sendMsg.SetContent("🏓 Pong!")
 
             m.Reply(true, sendMsg)
