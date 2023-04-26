@@ -20,7 +20,7 @@ Click [here](https://pkg.go.dev/github.com/ben-forster/revgo@v0.0.1) for api ref
 
 ## Notice
 
-Please note that you will need the Go 1.20 to use revoltgo.
+Please note that you will need the Go 1.20 to use revgo.
 
 This package is still under development and while you can create a working bot, the library is not finished. Create an issue if you would like to contribute.
 
