@@ -1,6 +1,6 @@
 # revgo
 
-revgo is a Go package for writing bots and self-bots in Revolt easily. Thus project is re-wrked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
+revgo is a Go package for writing bots and self-bots in Revolt easily. Thus project is re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
 
 ## Features
 
