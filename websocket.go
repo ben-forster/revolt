@@ -201,6 +201,20 @@ func (c *Client) handleEvents(rawData *struct {
 		for _, i := range c.OnChannelStopTypingFunctions {
 			i((*data)["id"], (*data)["user"])
 		}
+	} else if rawData.Type == "ServerCreate" && c.OnServerCreateFunctions != nil {
+		// Server create event..
+		serverData := &Server{}
+		serverData.Client = c
+	
+		err := json.Unmarshal([]byte(message), serverData)
+	
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+	
+		for _, i := range c.OnServerCreateFunctions {
+			i(serverData)
+		}
 	} else if rawData.Type == "ServerUpdate" && c.OnServerUpdateFunctions != nil {
 		// Server update event.
 		data := &struct {
