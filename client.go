@@ -3,29 +3,15 @@ package revgo
 import (
 	"encoding/json"
 	"fmt"
-	"log"
 	"net/http"
-	"os"
 
-	"github.com/joho/godotenv"
 	"github.com/sacOO7/gowebsocket"
 )
 
-var (
-	API_URL string
-	WS_URL string
+const (
+	WS_URL  = "wss://ws.revolt.chat"
+	API_URL = "https://api.revolt.chat"
 )
-
-func init() {
-	err := godotenv.Load()
-	if err != nil {
-		log.Fatal("can't auth user (not a self-bot.)", err)
-	}
-
-	API_URL = os.Getenv("API_URL")
-	WS_URL = os.Getenv("WS_URL")
-}
-
 
 // Client struct.
 type Client struct {
