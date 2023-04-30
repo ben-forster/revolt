@@ -140,7 +140,7 @@ func main() {
 - [x] OnChannelStartTyping
 - [x] OnChannelStopTyping
 - [ ] OnChannelAck
-- [ ] OnServerCreate
+- [x] OnServerCreate
 - [x] OnServerUpdate
 - [x] OnServerDelete
 - [x] OnServerMemberUpdate
