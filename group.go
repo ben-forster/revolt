@@ -39,7 +39,7 @@ func (c *Group) CalculateCreationDate() error {
 }
 
 // Fetch all of the members from group.
-func (c Channel) FetchGroupMembers() ([]*User, error) {
+func (c Channel) FetchMembers() ([]*User, error) {
 	var groupMembers []*User
 
 	resp, err := c.Client.Request("GET", "/channels/"+c.Id+"/members", []byte{})

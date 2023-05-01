@@ -54,7 +54,7 @@ type Member struct {
 }
 
 // Fetched server members struct.
-type FetchedServerMembers struct {
+type FetchedMembers struct {
 	Members []*Member `json:"members"`
 	Users   []*User   `json:"users"`
 }
@@ -173,8 +173,8 @@ func (s Server) FetchMember(id string) (*Member, error) {
 }
 
 // Fetch all of the members from Server.
-func (s Server) FetchServerMembers() (*FetchedServerMembers, error) {
-	members := &FetchedServerMembers{}
+func (s Server) FetchMembers() (*FetchedMembers, error) {
+	members := &FetchedMembers{}
 
 	data, err := s.Client.Request("GET", "/servers/"+s.Id+"/members", []byte{})
 
