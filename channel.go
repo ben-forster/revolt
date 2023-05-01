@@ -190,35 +190,6 @@ func (c Channel) SetPermissions(role_id string, permissions uint) error {
 	return err
 }
 
-// Fetch all of the members from group.
-// This function is only for GroupChannel.
-func (c Channel) FetchGroupMembers() ([]*User, error) {
-	var groupMembers []*User
-
-	resp, err := c.Client.Request("GET", "/channels/"+c.Id+"/members", []byte{})
-
-	if err != nil {
-		return groupMembers, err
-	}
-
-	err = json.Unmarshal(resp, &groupMembers)
-	return groupMembers, err
-}
-
-// Add a new group recipient.
-// This function is only for GroupChannel.
-func (c Channel) AddGroupRecipient(user_id string) error {
-	_, err := c.Client.Request("PUT", "/channels/"+c.Id+"/recipients/"+user_id, []byte{})
-	return err
-}
-
-// Delete a group recipient.
-// This function is only for GroupChannel.
-func (c Channel) DeleteGroupRecipient(user_id string) error {
-	_, err := c.Client.Request("DELETE", "/channels/"+c.Id+"/recipients/"+user_id, []byte{})
-	return err
-}
-
 // Send a typing start event to the channel.
 func (c *Channel) BeginTyping() {
 	c.Client.Socket.SendText(fmt.Sprintf("{\"type\":\"BeginTyping\",\"channel\":\"%s\"}", c.Id))

@@ -29,7 +29,7 @@ type Client struct {
 	OnChannelCreateFunctions      []func(channel *Channel)
 	OnChannelUpdateFunctions      []func(channel_id, clear string, payload map[string]interface{})
 	OnChannelDeleteFunctions      []func(channel_id string)
-	OnGroupCreateFunctions              []func(group *Group)
+	OnGroupCreateFunctions        []func(group *Group)
 	OnUnknownEventFunctions       []func(message string)
 	OnChannelStartTypingFunctions []func(channel_id, user_id string)
 	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
