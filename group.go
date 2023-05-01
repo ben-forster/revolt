@@ -14,7 +14,7 @@ type Group struct {
 
 	Id          string   `json:"_id"`	
 	Nonce       string   `json:"nonce"`
-	OwnerId     string    `json:"owner"`
+	OwnerId     string   `json:"owner"`
 	Name        string   `json:"name"`
 	Description string   `json:"description,omitempty"`
 	Users       []string `json:"users"`
