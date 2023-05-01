@@ -39,7 +39,6 @@ func (c *Group) CalculateCreationDate() error {
 }
 
 // Fetch all of the members from group.
-// This function is only for GroupChannel.
 func (c Channel) FetchGroupMembers() ([]*User, error) {
 	var groupMembers []*User
 
@@ -54,14 +53,12 @@ func (c Channel) FetchGroupMembers() ([]*User, error) {
 }
 
 // Add a new group recipient.
-// This function is only for GroupChannel.
 func (c Channel) AddGroupRecipient(user_id string) error {
 	_, err := c.Client.Request("PUT", "/channels/"+c.Id+"/recipients/"+user_id, []byte{})
 	return err
 }
 
 // Delete a group recipient.
-// This function is only for GroupChannel.
 func (c Channel) DeleteGroupRecipient(user_id string) error {
 	_, err := c.Client.Request("DELETE", "/channels/"+c.Id+"/recipients/"+user_id, []byte{})
 	return err
