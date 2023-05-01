@@ -40,7 +40,7 @@ type SystemMessages struct {
 	UserLeft    string `json:"user_left,omitempty"`
 	UserKicked  string `json:"user_kicker,omitempty"`
 	UserBanned  string `json:"user_banned,omitempty"`
-	UserTimeout string `json"user_timouet,omitempty"`
+	UserTimeout string `json:"user_timeout,omitempty"`
 }
 
 // Server member struct.
