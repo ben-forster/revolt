@@ -22,6 +22,7 @@ type Client struct {
 	Cache   *Cache
 
 	// Event Functions
+	OnUnknownEventFunctions       []func(message string)	
 	OnReadyFunctions              []func()
 	OnMessageFunctions            []func(message *Message)
 	OnMessageUpdateFunctions      []func(channel_id, message_id string, payload map[string]interface{})
@@ -32,7 +33,6 @@ type Client struct {
 	OnGroupCreateFunctions        []func(group *Group)
 	OnGroupMemberAddedFunctions   []func(group_id, user_id string)
 	OnGroupMemberRemovedFunctions []func(group_id, user_id string)
-	OnUnknownEventFunctions       []func(message string)
 	OnChannelStartTypingFunctions []func(channel_id, user_id string)
 	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
 	OnServerCreateFunctions       []func(server_id *Server)
