@@ -53,8 +53,8 @@ type Member struct {
 	Roles    []string    `json:"roles"`
 }
 
-// Fetched members struct.
-type FetchedGroupMembers struct {
+// Fetched server members struct.
+type FetchedServerMembers struct {
 	Members []*Member `json:"members"`
 	Users   []*User   `json:"users"`
 }

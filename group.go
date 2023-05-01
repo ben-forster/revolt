@@ -20,8 +20,8 @@ type Group struct {
 	Users       []string `json:"users"`
 }
 
-// Fetched messages struct.
-type FetchedServerMembers struct {
+// Fetched group members struct.
+type FetchedGroupMembers struct {
 	Messages []*Message `json:"messages"`
 	Users    []*User    `json:"users"`
 }
