@@ -29,7 +29,7 @@ type Client struct {
 	OnChannelCreateFunctions      []func(channel *Channel)
 	OnChannelUpdateFunctions      []func(channel_id, clear string, payload map[string]interface{})
 	OnChannelDeleteFunctions      []func(channel_id string)
-	OnGroupChannelCreateFunctions []func(group *Group)
+	OnGroupCreateFunctions              []func(group *Group)
 	OnUnknownEventFunctions       []func(message string)
 	OnChannelStartTypingFunctions []func(channel_id, user_id string)
 	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
@@ -86,8 +86,8 @@ func (c *Client) OnChannelDelete(fn func(channel_id string)) {
 }
 
 // On group channel create event will run when someones creates a group channel.
-func (c *Client) OnGroupChannelCreate(fn func(group *Group)) {
-	c.OnGroupChannelCreateFunctions = append(c.OnGroupChannelCreateFunctions, fn)
+func (c *Client) OnGroupCreate(fn func(group *Group)) {
+	c.OnGroupCreateFunctions = append(c.OnGroupCreateFunctions, fn)
 }
 
 
