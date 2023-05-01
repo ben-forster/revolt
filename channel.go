@@ -15,14 +15,12 @@ type Channel struct {
 	CreatedAt time.Time
 
 	Id                 string      `json:"_id"`
-	ChannelType        string      `json:"channel_type"`
-	UserId             string      `json:"user"`
 	Nonce              string      `json:"nonce"`
+	OwnerId            string      `json:"owner"`
+	Name               string      `json:"name"`
 	Active             bool        `json:"active"`
 	Recipients         []string    `json:"recipients"`
 	LastMessage        interface{} `json:"last_message"`
-	Name               string      `json:"name"`
-	OwnerId            string      `json:"owner"`
 	Description        string      `json:"description"`
 	Icon               *Attachment `json:"icon"`
 	DefaultPermissions uint        `json:"default_permissions"`

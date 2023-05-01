@@ -175,6 +175,20 @@ func (c *Client) handleEvents(rawData *struct {
 		for _, i := range c.OnChannelDeleteFunctions {
 			i((*data)["id"])
 		}
+		} else if rawData.Type == "GroupCreate" && c.OnGroupChannelCreateFunctions != nil {
+			// Group channel create event.
+			groupChannelData := &Group{}
+			groupChannelData.Client = c
+	
+			err := json.Unmarshal([]byte(message), groupChannelData)
+	
+			if err != nil {
+				fmt.Printf("Unexcepted Error: %s", err)
+			}
+	
+			for _, i := range c.OnGroupChannelCreateFunctions {
+				i(groupChannelData)
+			}
 	} else if rawData.Type == "ChannelStartTyping" && c.OnChannelStartTypingFunctions != nil {
 		// Channel start typing event.
 		data := &map[string]string{}
@@ -202,7 +216,7 @@ func (c *Client) handleEvents(rawData *struct {
 			i((*data)["id"], (*data)["user"])
 		}
 	} else if rawData.Type == "ServerCreate" && c.OnServerCreateFunctions != nil {
-		// Server create event..
+		// Server create event.
 		serverData := &Server{}
 		serverData.Client = c
 	
