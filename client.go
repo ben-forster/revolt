@@ -30,6 +30,8 @@ type Client struct {
 	OnChannelUpdateFunctions      []func(channel_id, clear string, payload map[string]interface{})
 	OnChannelDeleteFunctions      []func(channel_id string)
 	OnGroupCreateFunctions        []func(group *Group)
+	OnGroupMemberAddedFunctions   []func(group_id, user_id string)
+	OnGroupMemberRemovedFunctions []func(group_id, user_id string)
 	OnUnknownEventFunctions       []func(message string)
 	OnChannelStartTypingFunctions []func(channel_id, user_id string)
 	OnChannelStopTypingFunctions  []func(channel_id, user_id string)
@@ -90,6 +92,15 @@ func (c *Client) OnGroupCreate(fn func(group *Group)) {
 	c.OnGroupCreateFunctions = append(c.OnGroupCreateFunctions, fn)
 }
 
+// On group member added will run when someone is added to a group channel.
+func (c *Client) OnGroupMemberAdded(fn func(group_id string, user_id string)) {
+	c.OnGroupMemberAddedFunctions = append(c.OnGroupMemberAddedFunctions, fn)
+}
+
+// On group member removed will run when someone is removed from a group channel.
+func (c *Client) OnGroupMemberRemoved(fn func(group_id string, user_id string)) {
+	c.OnGroupMemberRemovedFunctions = append(c.OnGroupMemberRemovedFunctions, fn)
+}
 
 // On unknown event will run when client gets a unknown event.
 func (c *Client) OnUnknownEvent(fn func(message string)) {

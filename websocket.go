@@ -175,20 +175,46 @@ func (c *Client) handleEvents(rawData *struct {
 		for _, i := range c.OnChannelDeleteFunctions {
 			i((*data)["id"])
 		}
-		} else if rawData.Type == "GroupCreate" && c.OnGroupCreateFunctions != nil {
-			// Group channel create event.
-			groupChannelData := &Group{}
-			groupChannelData.Client = c
+	} else if rawData.Type == "GroupCreate" && c.OnGroupCreateFunctions != nil {
+		// Group channel create event.
+		groupChannelData := &Group{}
+		groupChannelData.Client = c
 	
-			err := json.Unmarshal([]byte(message), groupChannelData)
+		err := json.Unmarshal([]byte(message), groupChannelData)
 	
-			if err != nil {
-				fmt.Printf("Unexcepted Error: %s", err)
-			}
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
 	
-			for _, i := range c.OnGroupCreateFunctions {
-				i(groupChannelData)
-			}
+		for _, i := range c.OnGroupCreateFunctions {
+			i(groupChannelData)
+		}
+	} else if rawData.Type == "GroupMemberAdded" && c.OnGroupMemberAddedFunctions != nil {
+		// Group member added event.
+		data := &map[string]string{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnGroupMemberAddedFunctions {
+			i((*data)["id"], (*data)["user"])
+		}
+	} else if rawData.Type == "GroupMemberRemoved" && c.OnGroupMemberRemovedFunctions != nil {
+		// Group member removed event.
+		data := &map[string]string{}
+
+		err := json.Unmarshal([]byte(message), data)
+
+		if err != nil {
+			fmt.Printf("Unexcepted Error: %s", err)
+		}
+
+		for _, i := range c.OnGroupMemberRemovedFunctions {
+			i((*data)["id"], (*data)["user"])
+		}
 	} else if rawData.Type == "ChannelStartTyping" && c.OnChannelStartTypingFunctions != nil {
 		// Channel start typing event.
 		data := &map[string]string{}
