@@ -44,6 +44,7 @@ func (p *Permissions) InitServer() *Permissions {
 		"MANAGE_SERVER":   1 << 3,
 		"KICK_MEMBERS":    1 << 4,
 		"BAN_MEMBERS":     1 << 5,
+		"TIMEOUT_MEMBERS": 1 << 6,
 		// 6 bits of space
 		"CHANGE_NICKNAME":  1 << 12,
 		"CHANGE_NICKNAMES": 1 << 13,

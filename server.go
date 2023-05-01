@@ -36,10 +36,11 @@ type ServerCategory struct {
 
 // System messages struct.
 type SystemMessages struct {
-	UserJoined string `json:"user_joined,omitempty"`
-	UserLeft   string `json:"user_left,omitempty"`
-	UserKicked string `json:"user_kicker,omitempty"`
-	UserBanned string `json:"user_banned,omitempty"`
+	UserJoined  string `json:"user_joined,omitempty"`
+	UserLeft    string `json:"user_left,omitempty"`
+	UserKicked  string `json:"user_kicker,omitempty"`
+	UserBanned  string `json:"user_banned,omitempty"`
+	UserTimeout string `json"user_timouet,omitempty"`
 }
 
 // Server member struct.
@@ -268,6 +269,13 @@ func (s Server) FetchBans() (*FetchedBans, error) {
 	}
 
 	return bans, nil
+}
+
+// Timeout a member from server.
+func (s Server) TimeoutMember(id string) error {
+	// Placeholder for timeout.
+
+	return nil
 }
 
 // Set server permissions for a role.
