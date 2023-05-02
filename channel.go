@@ -1,4 +1,4 @@
-package revgo
+package revolt
 
 import (
 	"encoding/json"

@@ -1,6 +1,6 @@
-# revgo
+# revolt.go
 
-revgo is a Go package for writing bots and self-bots in Revolt easily. This project is a mantained and re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
+revolt is a Go package for writing bots and self-bots in Revolt easily. This project is a mantained and re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
 
 ## Features
 
@@ -12,15 +12,15 @@ revgo is a Go package for writing bots and self-bots in Revolt easily. This proj
 ## Installation
 
 - Create a new project and init go.mod file. `go mod init example`
-- Install the package using `go get github.com/ben-forster/revgo`
+- Install the package using `go get github.com/ben-forster/revolt.go`
 
 ## API Reference
 
-Click [here](https://pkg.go.dev/github.com/ben-forster/revgo@v0.0.1) for api reference.
+Click [here](https://pkg.go.dev/github.com/ben-forster/revolt.go@v0.0.1) for api reference.
 
 ## Notice
 
-Please note that you will need the Go 1.20 to use revgo.
+Please note that you will need the Go 1.20 to use revolt.
 
 This package is still under development and while you can create a working bot, the library is not finished. Create an issue if you would like to contribute.
 
@@ -34,19 +34,19 @@ import (
     "os/signal"
     "syscall"
 
-    "github.com/ben-forster/revgo"
+    "github.com/ben-forster/revolt"
 )
 
 func main() {
     // Init a new client.
-    client := revgo.Client{
+    client := revolt.Client{
         Token: "bot token",
     }
 
     // Listen a on message event.
-    client.OnMessage(func(m *revgo.Message) {
+    client.OnMessage(func(m *revolt.Message) {
         if m.Content == "!ping" {
-            sendMsg := &revgo.SendMessage{}
+            sendMsg := &revolt.SendMessage{}
             sendMsg.SetContent("🏓 Pong!")
 
             m.Reply(true, sendMsg)
@@ -83,13 +83,13 @@ import (
     "os/signal"
     "syscall"
 
-    "github.com/ben-forster/revgo"
+    "github.com/ben-forster/revolt"
 )
 
 func main() {
     // Init a new client.
-    client := revgo.Client{
-        SelfBot: &revgo.SelfBot{
+    client := revolt.Client{
+        SelfBot: &revolt.SelfBot{
             Id:           "session id",
             SessionToken: "session token",
             UserId:       "user id",
@@ -97,9 +97,9 @@ func main() {
     }
 
     // Listen a on message event.
-    client.OnMessage(func(m *revgo.Message) {
+    client.OnMessage(func(m *revolt.Message) {
         if m.Content == "!ping" {
-            sendMsg := &revgo.SendMessage{}
+            sendMsg := &revolt.SendMessage{}
             sendMsg.SetContent("🏓 Pong!")
 
             m.Reply(true, sendMsg)
@@ -127,6 +127,7 @@ func main() {
 ```
 
 ## To-Do
+
 - [x] OnReady
 - [x] OnMessage
 - [x] OnMessageUpdate

@@ -1,4 +1,4 @@
-package revgo
+package revolt
 
 // Emoji struct.
 type Emoji struct {

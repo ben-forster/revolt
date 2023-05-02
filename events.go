@@ -1,7 +1,4 @@
-package revgo
-
-import (
-)
+package revolt
 
 type Events struct {
 	

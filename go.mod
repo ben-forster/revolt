@@ -1,4 +1,4 @@
-module github.com/ben-forster/revgo
+module github.com/ben-forster/revolt
 
 go 1.20
 

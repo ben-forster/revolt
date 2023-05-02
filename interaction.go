@@ -1,4 +1,4 @@
-package revgo
+package revolt
 
 // Interaction struct.
 type Interaction struct {
