@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"log"
 
 	"github.com/sacOO7/gowebsocket"
 )
@@ -84,6 +85,7 @@ func (c *Client) handleEvents(rawData *struct {
 		// Ready Event
 		if c.OnReadyFunctions != nil {
 			for _, i := range c.OnReadyFunctions {
+				log.Printf("Bot is ready.")
 				i()
 			}
 		}
