@@ -58,8 +58,8 @@ func (u User) FormatMention() string {
 	return "<@" + u.Id + ">"
 }
 
-// Create a DM with the user.
-func (u User) CreateDirectMessage() (*Channel, error) {
+// Open a DM with the user.
+func (u User) OpenDirectMessage() (*Channel, error) {
 	dmChannel := &Channel{}
 	dmChannel.Client = u.Client
 
