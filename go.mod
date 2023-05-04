@@ -1,4 +1,4 @@
-module github.com/ben-forster/revolt
+module github.com/ben-forster/revolt.go
 
 go 1.20
 
