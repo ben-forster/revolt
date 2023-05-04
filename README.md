@@ -12,11 +12,11 @@ revolt is a Go package for writing bots and self-bots in Revolt easily. This pro
 ## Installation
 
 - Create a new project and init go.mod file. `go mod init example`
-- Install the package using `go get github.com/ben-forster/revolt.go`
+- Install the package using `go get github.com/ben-forster/revolt`
 
 ## API Reference
 
-Click [here](https://pkg.go.dev/github.com/ben-forster/revolt.go@v0.0.1) for api reference.
+Click [here](https://pkg.go.dev/github.com/ben-forster/revolt@v0.0.1) for api reference.
 
 ## Notice
 
