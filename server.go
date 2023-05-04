@@ -22,7 +22,7 @@ type Server struct {
 	Categories         []*ServerCategory      `json:"categories"`
 	SystemMessages     *SystemMessages        `json:"system_messages"`
 	Roles              map[string]interface{} `json:"roles"`
-	DefaultPermissions []interface{}          `json:"default_permissions"`
+	DefaultPermissions uint                   `json:"default_permissions"`
 	Icon               *Attachment            `json:"icon"`
 	Banner             *Attachment            `json:"banner"`
 }
