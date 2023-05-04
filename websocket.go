@@ -42,12 +42,12 @@ func (c *Client) Start() {
 			go c.ping()
 		}
 
-		// Handle events
+		// Handle events.
 		c.handleEvents(rawData, message)
 		// fmt.Println(message)
 	}
 
-	// Start connection
+	// Start connection.
 	c.Socket.Connect()
 }
 
@@ -78,18 +78,17 @@ func (c *Client) handleEvents(rawData *struct {
 	Type string `json:"type"`
 }, message string) {
 	if rawData.Type == "Ready" {
-		// Add cache
+		// Add cache.
 		c.handleCache(message)
 
-		// Ready Event
+		// onReady event
 		if c.OnReadyFunctions != nil {
 			for _, i := range c.OnReadyFunctions {
-				fmt.Printf("Bot is ready.")
 				i()
 			}
 		}
 	} else if rawData.Type == "Message" && c.OnMessageFunctions != nil {
-		// Message Event
+		// Message create event.
 		msgData := &Message{}
 		msgData.Client = c
 
@@ -103,7 +102,7 @@ func (c *Client) handleEvents(rawData *struct {
 			i(msgData)
 		}
 	} else if rawData.Type == "MessageUpdate" && c.OnMessageUpdateFunctions != nil {
-		// Message Update Event
+		// Message update event.
 		data := &struct {
 			ChannelId string                 `json:"channel"`
 			MessageId string                 `json:"id"`
@@ -120,7 +119,7 @@ func (c *Client) handleEvents(rawData *struct {
 			i(data.ChannelId, data.MessageId, data.Payload)
 		}
 	} else if rawData.Type == "MessageDelete" && c.OnMessageDeleteFunctions != nil {
-		// Message Delete Event
+		// Message delete event.
 		data := &map[string]string{}
 
 		err := json.Unmarshal([]byte(message), data)
