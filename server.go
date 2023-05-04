@@ -38,7 +38,7 @@ type ServerCategory struct {
 type SystemMessages struct {
 	UserJoined  string `json:"user_joined,omitempty"`
 	UserLeft    string `json:"user_left,omitempty"`
-	UserKicked  string `json:"user_kicker,omitempty"`
+	UserKicked  string `json:"user_kicked,omitempty"`
 	UserBanned  string `json:"user_banned,omitempty"`
 	UserTimeout string `json:"user_timeout,omitempty"`
 }
