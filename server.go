@@ -347,7 +347,7 @@ func (s Server) DeleteRole(id string) error {
 
 // Fetch server invite.
 func (s Server) FetchInvites(id string) error {
-	_, err := s.Client.Request("GET", "/users/"+id+"/default_avatar", []byte{})
+	_, err := s.Client.Request("GET", "/servers/"+id+"/invites", []byte{})
 
 	if err != nil {
 		return err
@@ -356,3 +356,13 @@ func (s Server) FetchInvites(id string) error {
 	return nil
 }
 
+// Mark a server as read.
+func (s Server) MarkServerAsRead(id string) error {
+	_, err := s.Client.Request("PUT", "/servers/"+id+"/ack", []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
