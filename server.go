@@ -344,3 +344,15 @@ func (s Server) DeleteRole(id string) error {
 
 	return nil
 }
+
+// Fetch server invite.
+func (s Server) FetchInvites(id string) error {
+	_, err := s.Client.Request("GET", "/users/"+id+"/default_avatar", []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
