@@ -1,6 +1,6 @@
 # revolt.go
 
-revolt is a Go package for writing bots and self-bots in Revolt easily. This project is a mantained and re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
+Revolt.go is a Go package for writing bots and self-bots in Revolt easily. This project is a mantained and re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
 
 ## Features
 
