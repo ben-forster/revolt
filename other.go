@@ -106,13 +106,13 @@ func (ec *EditChannel) RemoveItem(item string) *EditChannel {
 // Edit server struct.
 // Please see https://developers.revolt.chat/api/#tag/Server-Information/paths/~1servers~1:server/patch for more detail.
 type EditServer struct {
-	Name           string            `json:"name,omitempty"`
-	Description    string            `json:"description,omitempty"`
-	Icon           string            `json:"icon,omitempty"`
-	Banner         string            `json:"banner,omitempty"`
-	Categories     []*ServerCategory `json:"categories,omitempty"`
-	SystemMessages *SystemMessages   `json:"system_messages,omitempty"`
-	Remove         string            `json:"remove,omitempty"`
+	Name           string                  `json:"name,omitempty"`
+	Description    string                  `json:"description,omitempty"`
+	Icon           string                  `json:"icon,omitempty"`
+	Banner         string                  `json:"banner,omitempty"`
+	Categories     []*ServerCategory       `json:"categories,omitempty"`
+	SystemMessages *ServerSystemMessages   `json:"system_messages,omitempty"`
+	Remove         string                  `json:"remove,omitempty"`
 }
 
 // Set name for struct
@@ -146,7 +146,7 @@ func (es *EditServer) AddCategory(category *ServerCategory) *EditServer {
 }
 
 // Set system messages for struct.
-func (es *EditServer) SetSystemMessages(sm *SystemMessages) *EditServer {
+func (es *EditServer) SetSystemMessages(sm *ServerSystemMessages) *EditServer {
 	es.SystemMessages = sm
 	return es
 }

@@ -26,6 +26,12 @@ type FetchedGroupMembers struct {
 	Users    []*User    `json:"users"`
 }
 
+// System messages struct.
+type GroupSystemMessages struct {
+	UserJoined  string `json:"user_joined,omitempty"`
+	UserLeft    string `json:"user_left,omitempty"`
+}
+
 // Calculate creation date and edit the struct.
 func (c *Group) CalculateCreationDate() error {
 	ulid, err := ulid.Parse(c.Id)

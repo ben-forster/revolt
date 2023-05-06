@@ -13,18 +13,18 @@ type Server struct {
 	Client    *Client
 	CreatedAt time.Time
 
-	Id                 string                 `json:"_id"`
-	Nonce              string                 `json:"nonce"`
-	OwnerId            string                 `json:"owner"`
-	Name               string                 `json:"name"`
-	Description        string                 `json:"description"`
-	ChannelIds         []string               `json:"channels"`
-	Categories         []*ServerCategory      `json:"categories"`
-	SystemMessages     *SystemMessages        `json:"system_messages"`
-	Roles              map[string]interface{} `json:"roles"`
-	DefaultPermissions uint                   `json:"default_permissions"`
-	Icon               *Attachment            `json:"icon"`
-	Banner             *Attachment            `json:"banner"`
+	Id                 string                       `json:"_id"`
+	Nonce              string                       `json:"nonce"`
+	OwnerId            string                       `json:"owner"`
+	Name               string                       `json:"name"`
+	Description        string                       `json:"description"`
+	ChannelIds         []string                     `json:"channels"`
+	Categories         []*ServerCategory            `json:"categories"`
+	SystemMessages     *ServerSystemMessages        `json:"system_messages"`
+	Roles              map[string]interface{}       `json:"roles"`
+	DefaultPermissions uint                         `json:"default_permissions"`
+	Icon               *Attachment                  `json:"icon"`
+	Banner             *Attachment                  `json:"banner"`
 }
 
 // Server categories struct.
@@ -35,7 +35,7 @@ type ServerCategory struct {
 }
 
 // System messages struct.
-type SystemMessages struct {
+type ServerSystemMessages struct {
 	UserJoined  string `json:"user_joined,omitempty"`
 	UserLeft    string `json:"user_left,omitempty"`
 	UserKicked  string `json:"user_kicked,omitempty"`
