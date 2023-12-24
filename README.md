@@ -20,7 +20,7 @@ Click [here](https://pkg.go.dev/github.com/ben-forster/revolt@v0.0.1) for the li
 
 ## Notice
 
-Please note that you will need the Go 1.21 to use this library.
+Please note that you will need the **Go 1.21** to use this library.
 
 This package is still under development and while you can create a working bot, the library is not finished. You can see a development roadmap [here](https://github.com/users/ben-forster/projects/8). Please create an issue if you would like to contribute.
 
