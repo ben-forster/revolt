@@ -9,7 +9,7 @@ import (
 	"github.com/oklog/ulid/v2"
 )
 
-// Channel struct.
+// Channel
 type Channel struct {
 	Client    *Client
 	CreatedAt time.Time
