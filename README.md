@@ -1,12 +1,18 @@
+[![Go Reference](https://pkg.go.dev/badge/github.com/ben-forster/revolt.svg)](https://pkg.go.dev/github.com/ben-forster/revolt)
+[![Go Report](https://goreportcard.com/badge/github.com/ben-forster/revolt)](https://goreportcard.com/report/github.com/ben-forster/revolt)
+[![Go Version](https://img.shields.io/github/go-mod/go-version/ben-forster/revolt?filename=go.mod)](https://golang.org/doc/devel/release.html)
+[![License](https://img.shields.io/badge/License-MIT%202.0-blue.svg)](https://github.com/ben-forster/revolt/blob/master/LICENSE)
+[![Revolt.go Version](https://img.shields.io/github/v/release/ben-forster/revolt?label=release)](https://github.com/ben-forster/revolt/releases/latest)
+
 # Revolt.go
 
 Revolt.go is a Go package for writing bots and self-bots for Revolt.
 
 ## Features
-- Event listener
-- Easy to use
-- Supports self bots
-- Cache system
+- Event listener.
+- Easy to use.
+- Supports for self bots.
+- Simple caching system.
 
 ## Getting Started
 
@@ -17,6 +23,8 @@ Revolt.go is a Go package for writing bots and self-bots for Revolt.
 
 ## API Reference
 Click [here](https://pkg.go.dev/github.com/ben-forster/revolt@v0.0.1) for the library's API reference.
+
+Official documentation will come in the near future.
 
 ## Notice
 
