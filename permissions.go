@@ -3,7 +3,7 @@ package revolt
 // Permissions struct
 type Permissions struct {
 	Bitvise     uint
-	Mode        string // can ben CHANNEL, SERVER or USER
+	Mode        string // can be CHANNEL, SERVER or USER
 	Permissions map[string]uint
 }
 

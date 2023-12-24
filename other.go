@@ -110,7 +110,7 @@ type EditServer struct {
 	Description    string                  `json:"description,omitempty"`
 	Icon           string                  `json:"icon,omitempty"`
 	Banner         string                  `json:"banner,omitempty"`
-	Categories     []*ServerCategory       `json:"categories,omitempty"`
+	Categories     []*Category             `json:"categories,omitempty"`
 	SystemMessages *ServerSystemMessages   `json:"system_messages,omitempty"`
 	Remove         string                  `json:"remove,omitempty"`
 }
@@ -140,7 +140,7 @@ func (es *EditServer) SetBanner(autumn_id string) *EditServer {
 }
 
 // Add a new category for struct.
-func (es *EditServer) AddCategory(category *ServerCategory) *EditServer {
+func (es *EditServer) AddCategory(category *Category) *EditServer {
 	es.Categories = append(es.Categories, category)
 	return es
 }

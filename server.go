@@ -19,7 +19,7 @@ type Server struct {
 	Name               string                       `json:"name"`
 	Description        string                       `json:"description"`
 	ChannelIds         []string                     `json:"channels"`
-	Categories         []*ServerCategory            `json:"categories"`
+	Categories         []*Category            `json:"categories"`
 	SystemMessages     *ServerSystemMessages        `json:"system_messages"`
 	Roles              map[string]interface{}       `json:"roles"`
 	DefaultPermissions uint                         `json:"default_permissions"`
@@ -33,10 +33,8 @@ type ServerCreate struct {
 	Channels []Channel `json:"channels"`
 }
 
-
-
 // Server categories struct.
-type ServerCategory struct {
+type Category struct {
 	Id         string   `json:"id"`
 	Title      string   `json:"title"`
 	ChannelIds []string `json:"channels"`
