@@ -9,12 +9,12 @@ import (
 )
 
 func main() {
-    // Init a new client.
+    // Initiate a new client
     client := revolt.Client{
         Token: "bot token",
     }
 
-    // Listen a on message event.
+    // Listen a on message event
     client.OnMessage(func(m *revolt.Message) {
         if m.Content == "!ping" {
             sendMsg := &revolt.SendMessage{}
@@ -24,10 +24,10 @@ func main() {
         }
     })
 
-    // Start the client.
+    // Start the client
     client.Start()
 
-    // Wait for close.
+    // Wait for signal closure
     sc := make(chan os.Signal, 1)
 
     signal.Notify(
@@ -38,6 +38,6 @@ func main() {
     )
     <-sc
 
-    // Destroy client.
+    // Destroy the client
     client.Destroy()
 }
