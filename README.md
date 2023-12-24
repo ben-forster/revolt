@@ -1,28 +1,29 @@
-# revolt.go
+# Revolt.go
 
-Revolt.go is a Go package for writing bots and self-bots in Revolt easily. This project is a mantained and re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
+Revolt.go is a Go package for writing bots and self-bots for Revolt.
 
 ## Features
-
-- Multiple event listen
+- Event listener
 - Easy to use
 - Supports self bots
-- Simple cache system
+- Cache system
 
-## Installation
+## Getting Started
 
-- Create a new project and init go.mod file. `go mod init example`
+### Installation
+- Create a new project and initiate the go.mod file. `go mod init example`
 - Install the package using `go get github.com/ben-forster/revolt`
+- Create your main bot file. `touch main.go`
 
 ## API Reference
-
-Click [here](https://pkg.go.dev/github.com/ben-forster/revolt@v0.0.1) for api reference.
+Click [here](https://pkg.go.dev/github.com/ben-forster/revolt@v0.0.1) for the library's API reference.
 
 ## Notice
 
-Please note that you will need the Go 1.20 to use revolt.
+Please note that you will need the Go 1.21 to use this library.
 
-This package is still under development and while you can create a working bot, the library is not finished. Create an issue if you would like to contribute.
+This package is still under development and while you can create a working bot, the library is not finished. You can see a development roadmap [here](https://github.com/users/ben-forster/projects/8). Please create an issue if you would like to contribute.
+
 
 ## Ping Pong Example (Bot)
 
@@ -126,30 +127,6 @@ func main() {
 
 ```
 
-## To-Do
+## Credit
 
-- [x] OnReady
-- [x] OnMessage
-- [x] OnMessageUpdate
-- [ ] OnMessageAppend
-- [x] OnMessageDelete
-- [x] OnChannelCreate
-- [x] OnChannelUpdate
-- [x] OnChannelDelete
-- [ ] OnChannelGroupJoin
-- [ ] OnChannelGroupLeave
-- [x] OnChannelStartTyping
-- [x] OnChannelStopTyping
-- [ ] OnChannelAck
-- [x] OnServerCreate
-- [x] OnServerUpdate
-- [x] OnServerDelete
-- [x] OnServerMemberUpdate
-- [x] OnServerMemberJoin
-- [x] OnServerMemberLeave
-- [ ] OnServerRoleUpdate
-- [ ] OnServerRoleDelete
-- [ ] OnUserUpdate
-- [ ] OnUserRelationship
-- [ ] OnEmojiCreate
-- [ ] OnEmojiDelete
+This project is a mantained and re-worked version of 5elenay's library [revoltgo](https://github.com/5elenay/revoltgo).
