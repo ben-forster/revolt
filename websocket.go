@@ -35,7 +35,7 @@ func (c *Client) Start() {
 
 		if err != nil {
 			c.Destroy()
-			panic(err)
+			fmt.Println("Could not connect to WebSocket: ", err)
 		}
 
 		if rawData.Type == "Authenticated" {
