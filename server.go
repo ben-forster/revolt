@@ -27,6 +27,14 @@ type Server struct {
 	Banner             *Attachment                  `json:"banner"`
 }
 
+type ServerCreate struct {
+	ID       string    `json:"_id"`
+	Server   Server    `json:"server"`
+	Channels []Channel `json:"channels"`
+}
+
+
+
 // Server categories struct.
 type ServerCategory struct {
 	Id         string   `json:"id"`

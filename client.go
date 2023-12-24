@@ -1,6 +1,7 @@
 package revolt
 
 import (
+	"time"
 	"encoding/json"
 	"fmt"
 	"net/http"
@@ -9,8 +10,10 @@ import (
 )
 
 const (
-	WS_URL  = "wss://ws.revolt.chat"
-	API_URL = "https://api.revolt.chat"
+	RevoltAPI = "https://api.revolt.chat"
+	RevoltWebsocket  = "wss://ws.revolt.chat"
+
+	pingInterval = 15 * time.Second
 )
 
 // Client struct.

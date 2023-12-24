@@ -22,6 +22,7 @@ type Channel struct {
 	Recipients         []string    `json:"recipients"`
 	LastMessage        interface{} `json:"last_message"`
 	Description        string      `json:"description"`
+	NSFW               bool        `json:"nsfw"`
 	Icon               *Attachment `json:"icon"`
 	DefaultPermissions uint        `json:"default_permissions"`
 	RolePermissions    interface{} `json:"role_permissions"`
