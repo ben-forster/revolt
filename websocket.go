@@ -11,7 +11,7 @@ import (
 
 func (c *Client) Start() {
 	// Create new socket
-	c.Socket = gowebsocket.New(WS_URL)
+	c.Socket = gowebsocket.New(RevoltAPI)
 	c.HTTP = &http.Client{}
 
 	// Auth the user if self-bot.
