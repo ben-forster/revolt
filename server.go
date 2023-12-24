@@ -356,6 +356,17 @@ func (s Server) FetchInvites(id string) error {
 	return nil
 }
 
+// Create server invite.
+func (s Server) CreateInvites(id string) error {
+	_, err := s.Client.Request("POST", "/channels/"+id+"/invites", []byte{})
+
+	if err != nil {
+		return err
+	}
+
+	return nil
+}
+
 // Mark a server as read.
 func (s Server) MarkServerAsRead(id string) error {
 	_, err := s.Client.Request("PUT", "/servers/"+id+"/ack", []byte{})
