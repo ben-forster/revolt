@@ -11,7 +11,7 @@ Revolt.go is a Go package for writing bots and self-bots for Revolt.
 ## Features
 - Event listener.
 - Easy to use.
-- Supports for self bots.
+- Support for self bots.
 - Simple caching system.
 
 ## Getting Started
@@ -28,10 +28,9 @@ Official documentation will come in the near future.
 
 ## Notice
 
-Please note that you will need the **Go 1.21** to use this library.
+Please note that you will need **Go 1.21** to use this library.
 
 This package is still under development and while you can create a working bot, the library is not finished. You can see a development roadmap [here](https://github.com/users/ben-forster/projects/8). Please create an issue if you would like to contribute.
-
 
 ## Ping Pong Example (Bot)
 
